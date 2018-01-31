@@ -5,23 +5,35 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
-public abstract class Element extends JPanel{
-	protected Image elementImg = null;
-	protected ImageIcon elementImgIco = null;
+public abstract class Element{
+	protected Image elementImg;
+	protected ImageIcon elementIco;
 	protected int elementHeight = 0;
 	protected int elementLenth = 0;
 	protected int idElement;
 
-
-	public Element() {
-		super();
-		
-		this.elementImg = elementImg;
-		this.elementImgIco = elementImgIco;
-		this.elementHeight = elementHeight;
-		this.elementLenth = elementLenth;
-		this.idElement = idElement;
+	
+	public Image getElementImg() {
+		return elementImg;
 	}
+
+
+	public ImageIcon getElementIco() {
+		return elementIco;
+	}
+
+	public int getElementHeight() {
+		return elementHeight;
+	}
+
+	public int getElementLenth() {
+		return elementLenth;
+	}
+
+	public int getIdElement() {
+		return idElement;
+	}
+
 
 }
 
