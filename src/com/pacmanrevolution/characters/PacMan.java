@@ -10,27 +10,29 @@ import javax.swing.JLabel;
 import com.pacmanrevolution.game.Control;
 import com.pacmanrevolution.game.Main;
 
-public class PacMan extends Character implements KeyListener{
+public class PacMan extends Character implements Runnable, KeyListener{
 	private int playerLife = 3;
+	//Thread chronoPacMan = new Thread(new PacMan());
+	//Thread chronoPacMan = new Thread();
 	
 	//public  Sound soundEffects[];
+
 
 	public PacMan() {
 		this.elementIco = new ImageIcon("sprites/PacManMove/PacMan0.png");
 		this.elementImg= elementIco.getImage();
 		this.characterX=21;
 		this.characterY=21;
+		this.characterSpeed=2;
 		
-	
 		
 	}
 
 		
-		public boolean meetWall () {
-			return false;
-			
-		}
 
+		
+		// getters 
+		
 		public int getCharacterX() {
 			return characterX;
 		}
@@ -39,35 +41,104 @@ public class PacMan extends Character implements KeyListener{
 			return characterY;
 		}
 
+		//controles de PacMan
+
+	public void setMove(String move) {
+			this.move = move;
+		}
+
+		public int getPlayerLife() {
+			return playerLife;
+		}
+
+		public void setPlayerLife(int playerLife) {
+			this.playerLife = playerLife;
+		}
+
+		public String getMove() {
+			return move;
+		}
+
+		public void deplacerPacMan(){
+			
+			if (move =="RIGHT") {
+				if (characterX <= 658) { // cas ou pac-man rencontre le bout de la Scene
+					characterX = characterX+2; // on deplace pacman à droite 
+				}		
+			}
+			
+			else if (move =="LEFT") {
+				if (characterX >= 7) {	
+					characterX =characterX-2;
+				}	
+			}
+			
+			else if (move =="UP") {
+				if (characterY >= 7) {
+					characterY = characterY-2;
+				}
+			}
+			
+			else if (move == "DOWN") {
+				if (characterY <= 630) {		
+					characterY=characterY+2;
+				}
+			}
+			
+		}
+
+
+		@Override
+		public void run() {
+
+			while(true) {
+				
+				System.out.println(Main.sc1.pac.getMove());
+				
+					
+				try {			
+					Main.sc1.repaint();
+				}catch(Exception e) {
+					
+					System.out.println(e.getMessage());
+				}
+				
+				try {
+				
+					Thread.sleep(10);
+				} catch (InterruptedException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+			} 
+		}
+
+
+
 
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-			if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				
-				if (Main.sc1.pac.getCharacterX() <= 658) { // cas ou pac-man rencontre le bout de la Scene
-					Main.sc1.pac.setCharacterX(Main.sc1.pac.getCharacterX() + 7); // on deplace pacman à droite 
-				}
-			
-		} else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 
-				if (Main.sc1.pac.getCharacterX() >= 7) {	
-					Main.sc1.pac.setCharacterX(Main.sc1.pac.getCharacterX()-7);
+		/*	if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				setMove("RIGHT");
 			}
-		}
-		else if(e.getKeyCode() == KeyEvent.VK_UP) {
-			if (Main.sc1.pac.getCharacterY() >= 7) {
-				Main.sc1.pac.setCharacterY(Main.sc1.pac.getCharacterY()-7);
-			}
-		}
-		else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-			if (Main.sc1.pac.getCharacterY() <= 630) {
-				
-			Main.sc1.pac.setCharacterY(Main.sc1.pac.getCharacterY()+7);
-			}
-		}
 			
+			 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				setMove("LEFT");
+			}
+
+			 if (e.getKeyCode() == KeyEvent.VK_UP) {		
+				setMove("UP");
+			}
+
+			 if (e.getKeyCode() == KeyEvent.VK_DOWN) {		
+				setMove("DOWN");
+			}
+			*/
 		}
+
+
 
 
 		@Override
@@ -77,16 +148,24 @@ public class PacMan extends Character implements KeyListener{
 		}
 
 
+
+
 		@Override
 		public void keyTyped(KeyEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
-		
+	
 //Methodes
 	/*
 	public boolean haveWon () {
 		
+	}
+	
+	
+	public boolean meetWall () {
+		return false;
+			
 	}
 
 	public boolean swallowPacFreeze (PacMan.characterX , Pacman.caracterY , PacFreeze.quelquechose) {
