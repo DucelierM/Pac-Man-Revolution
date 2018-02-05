@@ -15,18 +15,22 @@ public class Control implements KeyListener{
 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			Main.sc1.pac.setMove("RIGHT");
+			Main.sc1.pac.imgElement = "sprites/PacManMove/PacMan0.png";
 		}
 		
 		 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			 Main.sc1.pac.setMove("LEFT");
+			 Main.sc1.pac.imgElement = "sprites/PacManMove/PacMan2.png";
 		}
 
 		 if (e.getKeyCode() == KeyEvent.VK_UP) {		
 			 Main.sc1.pac.setMove("UP");
+			 Main.sc1.pac.imgElement = "sprites/PacManMove/PacMan5.png";
 		}
 
 		 if (e.getKeyCode() == KeyEvent.VK_DOWN) {		
 			 Main.sc1.pac.setMove("DOWN");
+			 Main.sc1.pac.imgElement = "sprites/PacManMove/PacMan5.png";
 		}
 		
 	}

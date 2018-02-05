@@ -6,13 +6,40 @@ import javax.swing.JPanel;
 
 
 public abstract class Element{
+	
+	
+	// gestion d'affichage d'images
 	protected Image elementImg;
 	protected ImageIcon elementIco;
-	protected int elementHeight = 0;
-	protected int elementLenth = 0;
+	
+	// gestion des chemin d'images
+	protected String imgElement ="";
+	
+	// gestion de l'animations
+	
+	protected int idAnimationImgElement = 0;
+	
+	//position des elements de la scene
+	
+	protected int elementX;
+	protected int elementY;
+	
+	//hitbox des elements de la scene
+	
+	protected int elementHeight;
+	protected int elementLength;
+	
+	//identifiant  des elements de la scene
+	
 	protected int idElement;
 
+
 	
+	public Element() {
+
+	}
+
+
 	public Image getElementImg() {
 		return elementImg;
 	}
@@ -26,13 +53,24 @@ public abstract class Element{
 		return elementHeight;
 	}
 
-	public int getElementLenth() {
-		return elementLenth;
+	public int getElementLength() {
+		return elementLength;
 	}
 
 	public int getIdElement() {
 		return idElement;
 	}
+	
+	// getters 
+	
+	public int getElementX() {
+		return elementX;
+	}
+
+	public int getElementY() {
+		return elementY;
+	}
+
 
 
 }

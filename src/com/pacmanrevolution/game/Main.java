@@ -12,6 +12,7 @@ public class Main {
 	
 	public static Scene sc1 ;
 	public static void main(String[] args) {
+		
 /*
 		JOptionPane.showMessageDialog(null,
 				"Bienvenue sur PacMan Revolution ! Ne rages pas trop si tu n'arrives pas à finir le jeu !");
