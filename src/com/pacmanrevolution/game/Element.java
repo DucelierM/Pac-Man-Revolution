@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 
 public abstract class Element{
 	
-	
 	// gestion d'affichage d'images
 	protected Image elementImg;
 	protected ImageIcon elementIco;
@@ -35,11 +34,6 @@ public abstract class Element{
 
 
 	
-	public Element() {
-
-	}
-
-
 	public Image getElementImg() {
 		return elementImg;
 	}

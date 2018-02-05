@@ -1,13 +1,8 @@
 package com.pacmanrevolution.game;
 
-
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -16,16 +11,14 @@ import com.pacmanrevolution.characters.Clyde;
 import com.pacmanrevolution.characters.PacMan;
 import com.pacmanrevolution.objets.Wall;
 
-public class Scene extends JPanel {
+public class Scene extends JPanel  {
 
 	private ImageIcon icoFond = new ImageIcon("sprites/Wall/Background.jpg");
 	private Image imgFond1 = icoFond.getImage();
 	
-
-	
-	public PacMan pac = new PacMan();
-	public Clyde cly = new Clyde();
-	public Wall wall1 = new Wall();
+	protected PacMan pac = new PacMan();
+	private Clyde cly = new Clyde();
+	private Wall wall1 = new Wall();
 
 	public Scene() {
 	
@@ -35,10 +28,7 @@ public class Scene extends JPanel {
 		this.setFocusable(true);
 		this.requestFocusInWindow();
 		this.addKeyListener(new Control());
-		
-		
 
-		
 	}
 
 	public void paintComponent(Graphics g) {  // methode d'affichage de la map et de tous es elements 
@@ -47,10 +37,9 @@ public class Scene extends JPanel {
 		
 		// deplacement pac man
 		
-			this.pac.meetWall(wall1);
+			this.pac.meetWall(pac,wall1);
 			this.pac.deplacerPacMan();	
 	
-		
 		
 		g2.drawImage(this.imgFond1, 0, 0, null); // dessine l'arriere plan
 		g2.drawImage(pac.getElementImg(),pac.getElementX(),pac.getElementY(), null); // dessine pacman
