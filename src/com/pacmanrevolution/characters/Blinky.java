@@ -1,5 +1,9 @@
 package com.pacmanrevolution.characters;
 
-public class Blinky {
+class Blinky extends Ghost {
+
+	public Blinky() {
+		
+	}
 
 }

@@ -58,37 +58,37 @@ abstract class Character extends Element{
 	
 	// collision entre un caracter et un mur 
 	
-	public void meetWall (Wall wall) {
+	public void meetWall (Character character ,Wall wall) {
 		
 				if(		this.elementX+this.elementLength == wall.getElementX() 				//contact  du mur par la gauche
 						&& this.elementY+this.elementLength > wall.getElementY()			//permet de passer au dessus du mur 
 						&& this.elementY < wall.getElementY()+wall.getElementLength()		//permet de passer en dessous du mur 
 						&& this.move =="RIGHT")
-					{Main.sc1.pac.setBlocked("BLOCKleft");}
+					{character.setBlocked("BLOCKleft");}
 							
 				
 				else if( this.elementX == wall.getElementX()+wall.getElementLength()		//contact  du mur par la droite
 						&& this.elementY+this.elementLength > wall.getElementY()				//permet de passer au dessus du mur 
 						&& this.elementY < wall.getElementY()+wall.getElementLength()			//permet de passer au dessous du mur 
 						&& this.move =="LEFT")
-					{Main.sc1.pac.setBlocked("BLOCKright");} 
+					{character.setBlocked("BLOCKright");} 
 				
 			
 				else if (this.elementY+this.elementHeight == wall.getElementY()				//contact  du mur par le haut
 						&& this.elementX+this.elementLength > wall.getElementX()				//permet de passer à gauche du mur
 						&& this.elementX < wall.getElementX()+wall.getElementLength()			//permet de passer à droite du mur
 						&& this.move =="DOWN")
-					{Main.sc1.pac.setBlocked("BLOCKup");}
+					{character.setBlocked("BLOCKup");}
 				
 		
 				else if (this.elementY == wall.getElementY()+wall.getElementHeight()		//contact  du mur par le bas
 						&& this.elementX+this.elementLength > wall.getElementX()				//permet de passer à gauche du mur
 						&& this.elementX < wall.getElementX()+wall.getElementLength()			//permet de passer à droite du mur
 						&& this.move =="UP")
-					{Main.sc1.pac.setBlocked("BLOCKdown");}
+					{character.setBlocked("BLOCKdown");}
 				
 				
-				else{Main.sc1.pac.setBlocked("0");}
+				else{character.setBlocked("0");}
 				
 
 	}

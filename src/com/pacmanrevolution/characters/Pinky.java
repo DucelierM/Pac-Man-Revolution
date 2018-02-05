@@ -1,5 +1,9 @@
 package com.pacmanrevolution.characters;
 
-public class Pinky {
+class Pinky extends Ghost {
+
+	public Pinky() {
+		
+	}
 
 }

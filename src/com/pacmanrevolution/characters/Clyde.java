@@ -25,7 +25,7 @@ public class Clyde extends Ghost implements Runnable{
 		
 	}
 
-		public void deplacerPacMan(){
+		public void deplacerClyde(){
 			
 			if (move =="RIGHT") {
 				
@@ -137,7 +137,7 @@ public class Clyde extends Ghost implements Runnable{
 				
 					
 				try {			
-				System.out.println(Main.sc1.pac.getMove());
+				System.out.println(this.getMove());
 					Main.sc1.repaint();
 					
 					

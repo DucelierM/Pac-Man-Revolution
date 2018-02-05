@@ -17,7 +17,7 @@ public class PacMan extends Character implements Runnable{
 	//public  Sound soundEffects[];
 
 	public PacMan() {
-		this.imgElement = "sprites/PacManMove/PacMan8.png";
+		this.imgElement = "sprites/PacManMove/PacMan0.png";
 		this.idAnimationImgElement = 0;
 		
 		this.elementIco = new ImageIcon(imgElement);
@@ -137,8 +137,6 @@ public class PacMan extends Character implements Runnable{
 			}
 		}
 		
-
-
 		@Override
 		public void run() {
 
@@ -147,12 +145,11 @@ public class PacMan extends Character implements Runnable{
 				try {			
 					
 					Main.sc1.repaint();
-					System.out.println("position X pacMan : "+ Main.sc1.pac.elementX);
-					System.out.println("position Y pacMan : "+Main.sc1.pac.elementY);
-					System.out.println(Main.sc1.pac.getMove());
-					System.out.println(Main.sc1.pac.getBlocked());
-					System.out.println("position Y Mur : " + Main.sc1.wall1.getElementY());
-					System.out.println("position X Mur : " + Main.sc1.wall1.getElementX());
+				//	System.out.println("position Y pacMan : "+pac.getElementY());
+				//	System.out.println(pac.getMove());
+				//	System.out.println(pac.getBlocked());
+				//	System.out.println("position Y Mur : " + wall.getElementY());
+				//	System.out.println("position X Mur : " + wall.getElementX());
 					
 					this.idAnimationImgElement++;
 				}catch(Exception e) {
@@ -169,14 +166,12 @@ public class PacMan extends Character implements Runnable{
 				}
 			} 
 		}
-
-		
-		
+	
 //Methodes
 		
 		//controles de PacMan
 
-	public void setMove(String move) {
+		public void setMove(String move) {
 			this.move = move;
 			
 			
