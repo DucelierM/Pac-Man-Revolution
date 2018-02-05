@@ -9,95 +9,152 @@ import javax.swing.JLabel;
 
 import com.pacmanrevolution.game.Control;
 import com.pacmanrevolution.game.Main;
+import com.pacmanrevolution.objets.Wall;
 
-public class PacMan extends Character implements Runnable, KeyListener{
+public class PacMan extends Character implements Runnable{
 	private int playerLife = 3;
-	//Thread chronoPacMan = new Thread(new PacMan());
-	//Thread chronoPacMan = new Thread();
 	
 	//public  Sound soundEffects[];
 
-
 	public PacMan() {
-		this.elementIco = new ImageIcon("sprites/PacManMove/PacMan0.png");
+		this.imgElement = "sprites/PacManMove/PacMan8.png";
+		this.idAnimationImgElement = 0;
+		
+		this.elementIco = new ImageIcon(imgElement);
 		this.elementImg= elementIco.getImage();
-		this.characterX=21;
-		this.characterY=21;
+		this.elementHeight=35;
+		this.elementLength=35;
+		this.elementX=21;
+		this.elementY=21;
 		this.characterSpeed=2;
 		
 		
 	}
-
 		
-
-		
-		// getters 
-		
-		public int getCharacterX() {
-			return characterX;
-		}
-
-		public int getCharacterY() {
-			return characterY;
-		}
-
-		//controles de PacMan
-
-	public void setMove(String move) {
-			this.move = move;
-		}
-
-		public int getPlayerLife() {
-			return playerLife;
-		}
-
-		public void setPlayerLife(int playerLife) {
-			this.playerLife = playerLife;
-		}
-
-		public String getMove() {
-			return move;
-		}
-
+		// reponses des touches sur pacman 
+	
 		public void deplacerPacMan(){
 			
 			if (move =="RIGHT") {
-				if (characterX <= 658) { // cas ou pac-man rencontre le bout de la Scene
-					characterX = characterX+2; // on deplace pacman à droite 
+				
+				// changement de position de PacMan selon la direction 
+				
+				if (elementX <= 658 && blocked != "BLOCKleft"){ 
+					elementX = elementX+2;
+					blocked= "0";
+					
+					// changement d'animation de PacMan selon la direction 
+					
+					if(this.idAnimationImgElement==0) {
+						this.imgElement = "sprites/PacManMove/PacMan8.png";
+					}
+					else if (this.idAnimationImgElement==4) {
+						this.imgElement = "sprites/PacManMove/PacMan0.png";
+					}
+					else if (this.idAnimationImgElement==8) {
+						this.imgElement = "sprites/PacManMove/PacMan1.png";
+					}
+					else if (this.idAnimationImgElement==12) {
+						this.imgElement = "sprites/PacManMove/PacMan0.png";
+					}
 				}		
 			}
 			
-			else if (move =="LEFT") {
-				if (characterX >= 7) {	
-					characterX =characterX-2;
+			
+			else if (move=="LEFT" && blocked!="BLOCKright"){
+				
+				if (elementX >= 7) {	
+					elementX =elementX-2;
+					blocked= "0";
+						
+					if(this.idAnimationImgElement==0) {
+						this.imgElement = "sprites/PacManMove/PacMan8.png";
+					}
+					else if (this.idAnimationImgElement==4) {
+						this.imgElement = "sprites/PacManMove/PacMan2.png";
+					}
+					else if (this.idAnimationImgElement==8) {
+						this.imgElement = "sprites/PacManMove/PacMan3.png";
+					}
+					else if (this.idAnimationImgElement==12) {
+						this.imgElement = "sprites/PacManMove/PacMan2.png";
+					}	
 				}	
 			}
 			
-			else if (move =="UP") {
-				if (characterY >= 7) {
-					characterY = characterY-2;
+			
+			else if (move == "UP" && blocked != "BLOCKdown"){
+				
+				if (elementY >= 7) {
+					elementY = elementY-2;
+					blocked= "0";
+					
+					if(this.idAnimationImgElement==0) {
+						this.imgElement = "sprites/PacManMove/PacMan8.png";
+					}
+					else if (this.idAnimationImgElement==4) {
+						this.imgElement = "sprites/PacManMove/PacMan4.png";
+					}
+					else if (this.idAnimationImgElement==8) {
+						this.imgElement = "sprites/PacManMove/PacMan5.png";
+					}
+					else if (this.idAnimationImgElement==12) {
+						this.imgElement = "sprites/PacManMove/PacMan4.png";
+					}	
 				}
 			}
 			
-			else if (move == "DOWN") {
-				if (characterY <= 630) {		
-					characterY=characterY+2;
+			else if (move == "DOWN" && blocked != "BLOCKup") {
+				
+				if (elementY <= 630) {		
+					elementY=elementY+2;
+					blocked= "0";
+					
+					if(this.idAnimationImgElement==0) {
+						this.imgElement = "sprites/PacManMove/PacMan8.png";
+					}
+					else if (this.idAnimationImgElement==4) {
+						this.imgElement = "sprites/PacManMove/PacMan6.png";
+					}
+					else if (this.idAnimationImgElement==8) {
+						this.imgElement = "sprites/PacManMove/PacMan7.png";
+					}
+					else if (this.idAnimationImgElement==12) {
+						this.imgElement = "sprites/PacManMove/PacMan6.png";
+					}
 				}
 			}
+
+			// affectation de l'animation de PacMan
 			
+			this.elementIco = new ImageIcon(imgElement);
+			this.elementImg =elementIco.getImage();
+			
+			if(this.idAnimationImgElement==12) {
+				this.idAnimationImgElement=0;
+			}else {
+			this.idAnimationImgElement++;
+			}
 		}
+		
 
 
 		@Override
 		public void run() {
 
 			while(true) {
-				
-				System.out.println(Main.sc1.pac.getMove());
-				
-					
+	
 				try {			
+					
 					Main.sc1.repaint();
+					System.out.println("position X pacMan : "+ Main.sc1.pac.elementX);
+					System.out.println("position Y pacMan : "+Main.sc1.pac.elementY);
+					System.out.println(Main.sc1.pac.getMove());
+					System.out.println(Main.sc1.pac.getBlocked());
+					System.out.println("position Y Mur : " + Main.sc1.wall1.getElementY());
+					System.out.println("position X Mur : " + Main.sc1.wall1.getElementX());
+					
+					this.idAnimationImgElement++;
 				}catch(Exception e) {
 					
 					System.out.println(e.getMessage());
@@ -113,60 +170,44 @@ public class PacMan extends Character implements Runnable, KeyListener{
 			} 
 		}
 
-
-
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-
-		/*	if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				setMove("RIGHT");
-			}
-			
-			 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				setMove("LEFT");
-			}
-
-			 if (e.getKeyCode() == KeyEvent.VK_UP) {		
-				setMove("UP");
-			}
-
-			 if (e.getKeyCode() == KeyEvent.VK_DOWN) {		
-				setMove("DOWN");
-			}
-			*/
-		}
-
-
-
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-
-
-
-		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-	
+		
+		
 //Methodes
+		
+		//controles de PacMan
+
+	public void setMove(String move) {
+			this.move = move;
+			
+			
+		//getter et setters PacMan
+			
+		}
+
+		public int getPlayerLife() {
+			return playerLife;
+		}
+
+		public void setPlayerLife(int playerLife) {
+			this.playerLife = playerLife;
+		}
+
+		public String getMove() {
+			return move;
+		}
+
+
+	
+	
+
+	
 	/*
+	
 	public boolean haveWon () {
 		
 	}
 	
 	
-	public boolean meetWall () {
-		return false;
-			
-	}
 
 	public boolean swallowPacFreeze (PacMan.characterX , Pacman.caracterY , PacFreeze.quelquechose) {
 		
