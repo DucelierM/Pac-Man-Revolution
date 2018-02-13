@@ -1,33 +1,30 @@
 package com.pacmanrevolution.game;
 
-import com.pacmanrevolution.objets.PacGum;
-
-public class Chrono implements Runnable {
-	
-	private final int PAUSE = 3;
+public class Chrono implements Runnable{
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
-		
-		
 		while(true) {
 			
-			System.out.println("ok");
-			try {
-			Main.sc1.repaint();
+			try {			
+				
+			Main.sc1.repaint();	
+				
+			//this.idAnimationImgElement++;
 			}catch(Exception e) {
+				
 				System.out.println(e.getMessage());
 			}
 			
 			try {
-				Thread.sleep(PAUSE);
+			
+				Thread.sleep(4);
 			} catch (InterruptedException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-		}
+		} 
 	}
 
 }
