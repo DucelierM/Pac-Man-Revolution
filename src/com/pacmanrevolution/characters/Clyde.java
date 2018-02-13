@@ -2,190 +2,113 @@ package com.pacmanrevolution.characters;
 
 import javax.swing.ImageIcon;
 
-import com.pacmanrevolution.game.Main;
 
-public class Clyde extends Ghost implements Runnable{
-	private int playerLife = 3;
-	//Thread chronoPacMan = new Thread(new PacMan());
-	//Thread chronoPacMan = new Thread();
-	
+
+public class Clyde extends Ghost{
+
 	//public  Sound soundEffects[];
+	//public  Sound soundEffects[];
+	
+		public Clyde( int elementX,int elementY) {
 
+			super(new ImageIcon("sprites/PacMan/PacMan0.png"),"sprites/PacMan/PacMan0.png",
+					elementX,elementY,35,35,0,25,"RIGHT","0");
+			
+			super.elementImg=elementIco.getImage();
+			
+		}
 
-	public Clyde() {
-		this.imgElement = "sprites/Clyde/Clyde0.png";
-		this.idAnimationImgElement = 0;
-		
-		this.elementIco = new ImageIcon(imgElement);
-		this.elementImg= elementIco.getImage();
-		this.elementX=210;
-		this.elementY=210;
-		this.characterSpeed=2;
-		
-		
-	}
+		public Clyde() {
+			super(new ImageIcon("sprites/PacMan/PacMan0.png"),"sprites/PacMan/PacMan0.png",
+					50,50,35,35,0,25,"RIGHT","0");
+			
+			super.elementImg=elementIco.getImage();
+		}
 
-		public void deplacerClyde(){
+	
+	
+	// animations clyde
+
+		public void animationClyde(){
 			
 			if (move =="RIGHT") {
 				
-				// changement de position de PacMan selon la direction 
-				if (elementX <= 658) { 
-					elementX = elementX+2; 
+
+				// changement d'animation de Clyde selon la direction 
 					
-				// changement d'animation de PacMan selon la direction 
-					
-					if(this.idAnimationImgElement==0) {
-						this.imgElement = "sprites/PacManMove/PacMan8.png";
+					if (this.idAnimationImgElement==4 || this.idAnimationImgElement == 12 ){
+						this.elementRefImg = "sprites/Clyde/Clyde0.png";
 					}
-					else if (this.idAnimationImgElement==3) {
-						this.imgElement = "sprites/PacManMove/PacMan0.png";
+					else if (this.idAnimationImgElement==0 || this.idAnimationImgElement == 8 ) {
+						this.elementRefImg = "sprites/Clyde/Clyde1.png";
 					}
-					else if (this.idAnimationImgElement==6) {
-						this.imgElement = "sprites/PacManMove/PacMan1.png";
-					}
-					else if (this.idAnimationImgElement==9) {
-						this.imgElement = "sprites/PacManMove/PacMan0.png";
-					}
-				}		
+				//	else { this.move = "DOWN";}
+				
 			}
 			
 			else if (move =="LEFT") {
-				if (elementX >= 7) {	
-					elementX =elementX-2;
-					
-					
-					
-					if(this.idAnimationImgElement==0) {
-						this.imgElement = "sprites/PacManMove/PacMan8.png";
-					}
-					else if (this.idAnimationImgElement==3) {
-						this.imgElement = "sprites/PacManMove/PacMan2.png";
-					}
-					else if (this.idAnimationImgElement==6) {
-						this.imgElement = "sprites/PacManMove/PacMan3.png";
-					}
-					else if (this.idAnimationImgElement==9) {
-						this.imgElement = "sprites/PacManMove/PacMan2.png";
-					}
-					
-					
-				}	
-			}
-			
-			else if (move =="UP") {
-				if (elementY >= 7) {
-					elementY = elementY-2;
-					
-					
-					if(this.idAnimationImgElement==0) {
-						this.imgElement = "sprites/PacManMove/PacMan8.png";
-					}
-					else if (this.idAnimationImgElement==3) {
-						this.imgElement = "sprites/PacManMove/PacMan4.png";
-					}
-					else if (this.idAnimationImgElement==6) {
-						this.imgElement = "sprites/PacManMove/PacMan5.png";
-					}
-					else if (this.idAnimationImgElement==9) {
-						this.imgElement = "sprites/PacManMove/PacMan4.png";
-					}
-					
-				}
-			}
-			
-			else if (move == "DOWN") {
 				
-				if (elementY <= 630) {		
-					elementY=elementY+2;
-					
-					if(this.idAnimationImgElement==0) {
-						this.imgElement = "sprites/PacManMove/PacMan8.png";
+					if (this.idAnimationImgElement==4 || this.idAnimationImgElement == 12 ){
+						this.elementRefImg = "sprites/Clyde/Clyde2.png";
 					}
-					else if (this.idAnimationImgElement==3) {
-						this.imgElement = "sprites/PacManMove/PacMan6.png";
-					}
-					else if (this.idAnimationImgElement==6) {
-						this.imgElement = "sprites/PacManMove/PacMan7.png";
-					}
-					else if (this.idAnimationImgElement==9) {
-						this.imgElement = "sprites/PacManMove/PacMan6.png";
-					}
-					
-				}
+					else if (this.idAnimationImgElement==0 || this.idAnimationImgElement == 8 ) {
+						this.elementRefImg = "sprites/Clyde/Clyde3.png";	
+					}	
+				//	else { this.move = "UP";}
 			}
 			
-			// affectation de l'animation de PacMan
 			
-			this.elementIco = new ImageIcon(imgElement);
-			this.elementImg =elementIco.getImage();
+			else if (move =="UP") {	
+					if (this.idAnimationImgElement==4 || this.idAnimationImgElement == 12 ){
+						this.elementRefImg = "sprites/Clyde/Clyde4.png";
+					}
+					else if (this.idAnimationImgElement==0 || this.idAnimationImgElement == 8 ) {
+						this.elementRefImg = "sprites/Clyde/Clyde5.png";		
+					}
+				//	else { move = "RIGHT";}
+			}
 			
-			if(this.idAnimationImgElement==8) {
+			
+			
+			else if (move =="DOWN") {
+					if (this.idAnimationImgElement==4 || this.idAnimationImgElement == 12 ){
+						this.elementRefImg = "sprites/Clyde/Clyde6.png";
+					}
+					else if (this.idAnimationImgElement==0 || this.idAnimationImgElement == 8 ) {
+						this.elementRefImg = "sprites/Clyde/Clyde7.png";
+					}
+				//	else { move = "LEFT" ;}
+			}
+			
+		
+			// affectation de l'animation des characters
+			
+			this.elementIco = new ImageIcon(this.elementRefImg);
+			this.elementImg =this.elementIco.getImage();
+			
+			if(this.idAnimationImgElement==12) {
 				this.idAnimationImgElement=0;
-			}else {
+			} else {
 			this.idAnimationImgElement++;
 			}
+			
 		}
-
-
-		@Override
-		public void run() {
-
-			while(true) {
-				
-				
-				
-					
-				try {			
-				System.out.println(this.getMove());
-					Main.sc1.repaint();
-					
-					
-					
-					this.idAnimationImgElement++;
-				}catch(Exception e) {
-					
-					System.out.println(e.getMessage());
-				}
-				
-				try {
-				
-					Thread.sleep(10);
-				} catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-			} 
-		}
-
-//Methodes
 		
+	//IAclyde
 		
-	// getters 
-		
-		public int getCharacterX() {
-			return elementX;
+		public void iaClyde() {
+			
+			if (this.elementX == 662)
+				{this.move = "DOWN";}
+				
+			if (this.elementX == 0 )	
+				{this.move = "UP";}
+				
+			 if(this.elementY == 0)
+			 	{this.move = "RIGHT";}
+				
+			 if(this.elementY == 638)
+			 	{this.move = "LEFT";}
 		}
-
-		public int getCharacterY() {
-			return elementY;
-		}
-
-		//controles de PacMan
-
-	public void setMove(String move) {
-			this.move = move;
-		}
-
-		public int getPlayerLife() {
-			return playerLife;
-		}
-
-		public void setPlayerLife(int playerLife) {
-			this.playerLife = playerLife;
-		}
-
-		public String getMove() {
-			return move;
-		}
+	
 }
