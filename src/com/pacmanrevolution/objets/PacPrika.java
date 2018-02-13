@@ -1,5 +1,8 @@
 package com.pacmanrevolution.objets;
 
-public class PacPrika {
+class PacPrika extends Items{
 
+	public PacPrika() {
+
+	}
 }

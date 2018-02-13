@@ -1,5 +1,10 @@
 package com.pacmanrevolution.objets;
 
-public class SuperPacGum {
+
+class SuperPacGum extends Items {
+
+	public SuperPacGum() {
+		
+	}
 
 }

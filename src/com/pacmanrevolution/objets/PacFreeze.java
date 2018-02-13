@@ -1,5 +1,9 @@
 package com.pacmanrevolution.objets;
 
-public class PacFreeze {
+class PacFreeze extends Items {
+
+	public PacFreeze() {
+		
+	}
 
 }
