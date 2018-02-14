@@ -23,7 +23,7 @@ public class Scene extends JPanel  {
 	protected PacMan pac = new PacMan(500,500);
 	
 	
-	private Clyde cly = new Clyde(200,200);
+	private Clyde cly = new Clyde(500,200);
 	
 	private Wall wall1,wall2,wall3,wall4,wall5,wall6,wall7,wall8,wall9,wall10,wall11,wall12,wall13,wall14,wall15;
 	
@@ -150,7 +150,7 @@ public class Scene extends JPanel  {
 		pac.moveCharacter();
 		pac.meetWall(wall15);	
 		
-		/*	pac.meetWall(wall1);
+			pac.meetWall(wall1);
 			pac.meetWall(wall2);
 			pac.meetWall(wall3);
 			pac.meetWall(wall4);
@@ -165,7 +165,6 @@ public class Scene extends JPanel  {
 			pac.meetWall(wall13);			
 			pac.meetWall(wall14);
 			
-		*/
 		pac.animationPacMan();
 			
 		// deplacement de clyde
@@ -190,7 +189,8 @@ public class Scene extends JPanel  {
 		
 			cly.meetWall(wall15);
 			cly.moveCharacter();
-			cly.iaClyde();
+			cly.iaClyde(pac);
+			cly.recoveryClyde(pac);
 			cly.animationClyde();
 		
 	
