@@ -1,11 +1,8 @@
 package com.pacmanrevolution.characters;
 
-import java.awt.Image;
-
 import javax.swing.ImageIcon;
 
-import com.pacmanrevolution.game.Main;
-import com.pacmanrevolution.objets.Wall;
+import com.pacmanrevolution.objets.*;
 
 
 public class PacMan extends Character{
@@ -131,6 +128,11 @@ public class PacMan extends Character{
 			this.playerLife = playerLife;
 		}
 	
+		public boolean contactItem(Item piece){		
+			if(this.contactArriere(piece) == true || this.contactAvant(piece) == true || this.contactDessous(piece) == true || this.contactDessus(piece) == true){
+				return true;			
+			}else{return false;}
+		}
 		
 		
 	/*

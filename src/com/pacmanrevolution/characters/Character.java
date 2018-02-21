@@ -1,9 +1,12 @@
 package com.pacmanrevolution.characters;
-import java.awt.Image;
+
+
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
 import com.pacmanrevolution.game.Element;
+import com.pacmanrevolution.objets.Item;
 import com.pacmanrevolution.objets.Wall;
 
 public abstract class Character extends Element {
@@ -11,16 +14,9 @@ public abstract class Character extends Element {
 	//protected int characterSpeed = 50;
 	protected String move = "RIGHT";
 	protected String blocked = "0";
-	
 
-	
-	
-	
-	
 	/* GETTERS ET SETTERS  */
-	
-
-	
+		
 	public Character(ImageIcon elementIco,
 			String elementRefImg,
 			int elementX,
@@ -67,39 +63,45 @@ public abstract class Character extends Element {
 	
 	// collision entre un personnage et un mur 
 	
-public void meetWall (Wall wall) {
+//public void meetWall (Wall wall)
+public void meetWall (ArrayList<Wall> tabWall)
+{
+	for(int i =0;i<tabWall.size();i++) {
 	
-	
-		if (this.getElementY()+this.getElementHeight() == wall.getElementY()		//contact  du mur par le haut
-				&& this.getElementX()+this.getElementLength() > wall.getElementX()		//permet de passer à gauche du mur
-				&& this.getElementX() < wall.getElementX()+wall.getElementLength()		//permet de passer à droite du mur
+		if (this.getElementY()+this.getElementHeight() == tabWall.get(i).getElementY()		//contact  du mur par le haut
+				&& this.getElementX()+this.getElementLength() > tabWall.get(i).getElementX()		//permet de passer à gauche du mur
+				&& this.getElementX() < tabWall.get(i).getElementX()+tabWall.get(i).getElementLength()		//permet de passer à droite du mur
 				)
-			{this.setBlocked("BLOCKup");}
+			{this.setBlocked("BLOCKup");
+			 break;}
 	
 		
-		else if(this.elementX+this.elementLength == wall.getElementX()				//contact  du mur par la gauche
-				&& this.getElementY()+this.getElementHeight() > wall.getElementY()		//permet de passer au dessus du mur 
-				&& this.getElementY() < wall.getElementY()+wall.getElementHeight()  //permet de passer en dessous du mur 
+		else if(this.elementX+this.elementLength == tabWall.get(i).getElementX()				//contact  du mur par la gauche
+				&& this.getElementY()+this.getElementHeight() > tabWall.get(i).getElementY()		//permet de passer au dessus du mur 
+				&& this.getElementY() < tabWall.get(i).getElementY()+tabWall.get(i).getElementHeight()  //permet de passer en dessous du mur 
 				
 				)
-			{this.blocked="BLOCKleft";}
+			{this.blocked="BLOCKleft";
+			 break;}
 		
 				
-		else if(this.getElementX() == wall.getElementX()+wall.getElementLength()		//contact  du mur par la droite
-				&& this.getElementY()+this.getElementLength() > wall.getElementY()		//permet de passer au dessus du mur 
-				&& this.getElementY() < wall.getElementY()+wall.getElementLength()		//permet de passer au dessous du mur 
+		else if(this.getElementX() == tabWall.get(i).getElementX()+tabWall.get(i).getElementLength()		//contact  du mur par la droite
+				&& this.getElementY()+this.getElementLength() > tabWall.get(i).getElementY()		//permet de passer au dessus du mur 
+				&& this.getElementY() < tabWall.get(i).getElementY()+tabWall.get(i).getElementLength()		//permet de passer au dessous du mur 
 				)
-			{this.setBlocked("BLOCKright");} 
+			{this.setBlocked("BLOCKright");
+			 break;} 
 
-		else if (this.getElementY() == wall.getElementY()+wall.getElementHeight()		//contact  du mur par le bas
-				&& this.getElementX()+this.getElementLength() > wall.getElementX()		//permet de passer à gauche du mur
-				&& this.getElementX() < wall.getElementX()+wall.getElementLength()		//permet de passer à droite du mur
+		else if (this.getElementY() == tabWall.get(i).getElementY()+tabWall.get(i).getElementHeight()		//contact  du mur par le bas
+				&& this.getElementX()+this.getElementLength() > tabWall.get(i).getElementX()		//permet de passer à gauche du mur
+				&& this.getElementX() < tabWall.get(i).getElementX()+tabWall.get(i).getElementLength()		//permet de passer à droite du mur
 				)
-			{this.setBlocked("BLOCKdown");}
+			{this.setBlocked("BLOCKdown");
+			 break;}
 		
 		else{this.setBlocked("0");}
-
 	}
+}
 
 // deplace le personnage 
 
@@ -121,5 +123,38 @@ public void moveCharacter() {
 		else if(blocked != "BLOCKup"  && move=="DOWN" && this.elementY != 638) {		
 				this.elementY=this.elementY+1;		
 		}	
+	}
+	public boolean proche(Item objet){   	
+		if((this.elementX > objet.getElementX() - 10 && this.elementX < objet.getElementX() + objet.getElementLength() + 10) 
+		|| (this.elementX + this.elementHeight > objet.getElementX() - 10 && this.elementX + this.elementHeight < objet.getElementX() + objet.getElementLength() + 10)){return true;}
+		else{return false;}
+	}
+	
+    protected boolean contactAvant(Item objet){
+		if(this.move=="RIGHT" == true){
+			if(this.elementX + this.elementLength < objet.getElementX() || this.elementX + this.elementLength > objet.getElementX() + 5 
+					|| this.elementY + this.elementHeight <= objet.getElementY() || this.elementY >= objet.getElementY() + 
+					objet.getElementHeight()){return false;}
+			else{return true;}
+		}else{return false;}
+	} 
+    
+    protected boolean contactArriere(Item objet){		
+		if(this.elementX > objet.getElementX() + objet.getElementLength() || this.elementX + this.elementLength < objet.getElementX() 
+				+ objet.getElementLength() - 5 || this.getElementY() + this.elementHeight <= objet.getElementY() || 
+				this.elementY >= objet.getElementY() + objet.getElementHeight()){return false;}
+		else{return true;}
+	}
+
+    protected boolean contactDessous(Item objet){	
+		if(this.elementX + this.elementLength < objet.getElementX() + 5 || this.elementX > objet.getElementX() + objet.getElementLength() - 5 || 
+				this.elementY + this.elementHeight < objet.getElementY() || this.elementY + this.elementHeight > objet.getElementY() + 5){return false;}
+		else{return true;}		
+	}
+
+    protected boolean contactDessus(Item objet){
+		if(this.elementX + this.elementLength < objet.getElementX() + 5 || this.elementX > objet.getElementX() + objet.getElementLength() - 5 || 
+				this.elementY < objet.getElementY() + objet.getElementHeight() || this.elementY > objet.getElementY() + objet.getElementHeight() + 5){return false;}
+		else{return true;}
 	}
 }
