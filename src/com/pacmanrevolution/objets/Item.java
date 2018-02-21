@@ -22,4 +22,6 @@ public class Item extends Element{
 		super.elementImg=elementIco.getImage();
 	}
 
+	
+	
 }
