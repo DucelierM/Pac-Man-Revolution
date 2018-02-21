@@ -13,7 +13,7 @@ public class Main {
 	public static Scene sc1 ;
 	public static void main(String[] args) {
 		
-/*
+
 		JOptionPane.showMessageDialog(null,
 				"Bienvenue sur PacMan Revolution ! Ne rages pas trop si tu n'arrives pas à finir le jeu !");
 
@@ -38,7 +38,7 @@ public class Main {
 
 		JOptionPane.showMessageDialog(null, "Votre nom est " + name + ". c'est parti pour perdre !!!", "Identite",
 				JOptionPane.INFORMATION_MESSAGE);
-*/
+
 		// Display map
 
 		JFrame display = new JFrame("Pac Man Revolution");
