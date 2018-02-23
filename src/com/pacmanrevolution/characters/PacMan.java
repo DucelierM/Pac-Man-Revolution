@@ -1,8 +1,13 @@
 package com.pacmanrevolution.characters;
 
+import java.awt.Image;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
-import com.pacmanrevolution.objets.*;
+import com.pacmanrevolution.game.Main;
+import com.pacmanrevolution.objets.Item;
+import com.pacmanrevolution.objets.Wall;
 
 
 public class PacMan extends Character{
@@ -10,25 +15,58 @@ public class PacMan extends Character{
 	
 	//public  Sound soundEffects[];
 	
-	public PacMan( int elementX,int elementY) {
+	public PacMan(int elementX,int elementY) {
 
 		super(new ImageIcon("sprites/PacMan/PacMan0.png"),"sprites/PacMan/PacMan0.png",
-				elementX,elementY,35,35,0,25,"RIGHT","0");
-		
+				elementX,elementY,35,35,0,25,"RIGHT","RIGHT","0",1);
 		super.elementImg=elementIco.getImage();
+
 		
 	}
 
 	public PacMan() {
 		super(new ImageIcon("sprites/PacMan/PacMan0.png"),"sprites/PacMan/PacMan0.png",
-				50,50,35,35,0,25,"RIGHT","0");
+				50,50,35,35,0,25,"RIGHT","RIGHT","0",1);
 		
 		super.elementImg=elementIco.getImage();
 		
+		
 	}
 
+
+	public void load (ArrayList<Wall> tabWall) {
+		
+		int ratio = 100;
+		ratio= ratio / this.characterSpeed;
+		
+			
+		this.nextMoveCharacter();
+		this.moveCharacter();
+		this.meetWall(tabWall);
+		
+		
+		this.animationPacMan();
+		
+		if(this.chronoSpeed == ratio) {
+			
+			this.nextMoveCharacter();
+			this.moveCharacter();
+			this.meetWall(tabWall);	
+			
+			this.nextMoveCharacter();
+			this.moveCharacter();
+			this.meetWall(tabWall);	
+			
+			this.chronoSpeed = 0;
+		}
+		
+		this.chronoSpeed++;
 	
-		// animation du personnage
+	}
+	
+
+		
+	// animation du personnage
 	
 		public void animationPacMan(){
 			
@@ -110,6 +148,7 @@ public class PacMan extends Character{
 			if(super.idAnimationImgElement==27) {
 				super.idAnimationImgElement=0;
 			}else {
+				
 			super.idAnimationImgElement++;
 			}
 		}
@@ -128,12 +167,13 @@ public class PacMan extends Character{
 			this.playerLife = playerLife;
 		}
 	
+		
+
 		public boolean contactItem(Item piece){		
 			if(this.contactArriere(piece) == true || this.contactAvant(piece) == true || this.contactDessous(piece) == true || this.contactDessus(piece) == true){
 				return true;			
 			}else{return false;}
 		}
-		
 		
 	/*
 	
