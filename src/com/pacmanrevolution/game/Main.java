@@ -1,11 +1,7 @@
 package com.pacmanrevolution.game;
-import com.pacmanrevolution.objets.*;
-import com.pacmanrevolution.characters.*;
-
-import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 import javax.swing.JOptionPane;
 
 public class Main {
@@ -13,7 +9,7 @@ public class Main {
 	public static Scene sc1 ;
 	public static void main(String[] args) {
 		
-
+/*
 		JOptionPane.showMessageDialog(null,
 				"Bienvenue sur PacMan Revolution ! Ne rages pas trop si tu n'arrives pas à finir le jeu !");
 
@@ -38,13 +34,13 @@ public class Main {
 
 		JOptionPane.showMessageDialog(null, "Votre nom est " + name + ". c'est parti pour perdre !!!", "Identite",
 				JOptionPane.INFORMATION_MESSAGE);
-
+*/
 		// Display map
 
 		JFrame display = new JFrame("Pac Man Revolution");
 
 		display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		display.setSize(700, 700);
+		display.setSize(702, 700);
 		display.setLocationRelativeTo(null);
 		display.setResizable(false);	//interdit le redimensionement de la fenetre
 		display.setAlwaysOnTop(true); // permet de faire passer tous les autres images au dessus de Background

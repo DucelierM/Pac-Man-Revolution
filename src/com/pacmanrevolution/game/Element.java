@@ -21,7 +21,7 @@ public abstract class Element{
 	protected int elementHeight;
 	protected int elementLength;
 	
-	// gestion de l'animations	
+	// gestion de l'animation
 	protected int idAnimationImgElement;
 	
 	//identifiant  des elements de la scene

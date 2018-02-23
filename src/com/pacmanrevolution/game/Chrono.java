@@ -11,7 +11,6 @@ public class Chrono implements Runnable{
 				
 			Main.sc1.repaint();	
 				
-			//this.idAnimationImgElement++;
 			}catch(Exception e) {
 				
 				System.out.println(e.getMessage());

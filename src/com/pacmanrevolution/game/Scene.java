@@ -11,23 +11,32 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import com.pacmanrevolution.display.*;
+import com.pacmanrevolution.characters.Blinky;
 import com.pacmanrevolution.characters.Clyde;
+import com.pacmanrevolution.characters.Inky;
 import com.pacmanrevolution.characters.PacMan;
+import com.pacmanrevolution.characters.Pinky;
 import com.pacmanrevolution.objets.PacGum;
 import com.pacmanrevolution.objets.Item;
 import com.pacmanrevolution.objets.PacFruit;
 import com.pacmanrevolution.objets.Wall;
-
 
 public class Scene extends JPanel  {
 
 	private ImageIcon icoFond = new ImageIcon("sprites/Wall/Background.jpg");
 	private Image imgFond1 = icoFond.getImage();
 	
-	protected PacMan pac = new PacMan(500,500);
 	private Score score;
 	
+	protected PacMan pac = new PacMan(500,500);
+	
 	private Clyde cly = new Clyde(500,200);
+	
+	private Inky ink = new Inky (500,235);
+	
+	private Pinky pin = new Pinky(500,270);
+	
+	private Blinky blk = new Blinky (500,305);
 	
 	private Wall wall1,wall2,wall3,wall4,wall5,wall6,wall7,wall8,wall9,wall10,wall11,wall12,wall13,wall14,wall15,
 	wall16,wall17,wall18,wall19,wall20,wall21,wall22,wall23,wall24,wall25,wall26,wall27,wall28,wall29,
@@ -48,7 +57,11 @@ public class Scene extends JPanel  {
 
 	public Scene() {
 		
+	// chargement des elements sur la map
+		
 		super();
+		
+	// pac gums
 		// A gerer toutes les 30 X et Y
 		pacGum1 = new PacGum(28, 58);
 		pacGum2 = new PacGum(28, 88);
@@ -71,12 +84,16 @@ public class Scene extends JPanel  {
 		pacGum19 = new PacGum(570,590);
 		pacGum20 = new PacGum(600,590);
 		
-
+	
+	// pac fruits 
+		
 		pacFruit0 = new PacFruit(650,168,"Fruit0");
 		pacFruit1 = new PacFruit(218,590,"Fruit1");
 		pacFruit2 = new PacFruit(650,28,"Fruit2");
 		pacFruit3 = new PacFruit(650,590,"Fruit3");
 		pacFruit4 = new PacFruit(298,168,"Fruit4");
+		
+	// wall
 		
 		wall1 = new Wall(0,0);
 		wall2 = new Wall(35,0);
@@ -192,7 +209,7 @@ public class Scene extends JPanel  {
 		
 		
 		
-		
+	// initialisation du tableau de wall	
 		
 		
 		
@@ -298,6 +315,8 @@ public class Scene extends JPanel  {
 		tabWall.add(wall98);
 		tabWall.add(wall99);
 		tabWall.add(wall100);
+		
+	// initialisation du tableau d'item
 
 		tabItems = new ArrayList<Item>();
 		tabItems.add(pacGum1);
@@ -329,7 +348,7 @@ public class Scene extends JPanel  {
 		tabItems.add(pacFruit3);
 		tabItems.add(pacFruit4);
 		
-	
+	// initialisation du chronometre et lancement
 		Thread chronoCharacter = new Thread(new Chrono());
 		chronoCharacter.start();
 			
@@ -337,46 +356,45 @@ public class Scene extends JPanel  {
 		this.requestFocusInWindow();
 		this.addKeyListener(new Control());
 		
+	// affichage de la barre de score .
+
 		score = new Score() {
 		};
-
 	}
 
+	
+	
 	public void paintComponent(Graphics g) {  // methode d'affichage de la map et de tous es elements 
 		super.paintComponent(g);
 		Graphics g2 = (Graphics2D) g; // Graphics2D donne un meilleur rendu graphique
 		
-		// deplacement pac man
 		
-		pac.moveCharacter();
+	// chargement des personnages dans la scene
 		
-		pac.meetWall(tabWall);	
-		
-		pac.animationPacMan();
-			
-		// deplacement de clyde
-			
-		
-			cly.meetWall(tabWall);
-			cly.moveCharacter();
-			cly.iaClyde(pac);
-			cly.animationClyde();
-		
+		pac.load(tabWall);
+		cly.load(tabWall,pac);
+		blk.load(tabWall,pac);
+		pin.load(tabWall,pac);
+		ink.load(tabWall,pac);
+
+
 	
 		
 		g2.drawImage(this.imgFond1, 0, 0, null); // déssine l'arriere plan
 		g2.drawImage(pac.getElementImg(),pac.getElementX(),pac.getElementY(), null); // dessine pacman
 		g2.drawImage(cly.getElementImg(),cly.getElementX(),cly.getElementY(), null); // dessine clyde
-		//g2.drawImage(wall1.getElementImg(),wall1.getElementX(),wall1.getElementY(), null); // dessine wall1
-
+		g2.drawImage(blk.getElementImg(),blk.getElementX(),blk.getElementY(), null); // dessine clyde
+		g2.drawImage(pin.getElementImg(),pin.getElementX(),pin.getElementY(), null); // dessine clyde
+		g2.drawImage(ink.getElementImg(),ink.getElementX(),ink.getElementY(), null); // dessine clyde
 		
+
 		for(int i = 0; i < this.tabItems.size(); i++){
  			g2.drawImage(this.tabItems.get(i).getElementImg(), this.tabItems.get(i).getElementX(), this.tabItems.get(i).getElementY(), null);
  			if(this.pac.proche(this.tabItems.get(i))){	
 	 			if(this.pac.contactItem(this.tabItems.get(i))){
  	 				this.tabItems.remove(i);
  	 				/*
- 	 				 *  C'est ici qu'il faut g�rer justement les diff�rentes grilles de points en fonction
+ 	 				 *  C'est ici qu'il faut gérer justement les différentes grilles de points en fonction
  	 				 *  de l'objet (puis mettre le son)
  	 				 */
  	 				
@@ -385,32 +403,26 @@ public class Scene extends JPanel  {
 		 			}
  			}
  		}
-		
 		for(int i = 0; i < this.tabWall.size(); i++){
  			g2.drawImage(this.tabWall.get(i).getElementImg(), this.tabWall.get(i).getElementX(), this.tabWall.get(i).getElementY(), null);
  		}
-		
-		
-	/*
-		 * 		System.out.println("cly bloqué ? "+cly.getBlocked());
-		System.out.println("cly move :"+cly.getMove());
-		System.out.println("position Y Clyde : "+cly.getElementY());
-		System.out.println("position X Clyde: "+cly.getElementX());	
-		 * 
-		 */
-	//	System.out.println("taille Clyde : "+cly.getElementHeight());
-	//	System.out.println("largeur  Clyde: "+cly.getElementLength());
-		
-		
-	//	System.out.println("pac bloqué ? "+pac.getBlocked());
-	//	System.out.println("pac move :"+pac.getMove());	
-	//	System.out.println("pacX "+pac.getElementX());
-	//	System.out.println("pacY"+pac.getElementY());
-		
+
 		g2.setColor(Color.white);
 		g.setFont(new Font("impact", Font.BOLD, 15)); 
-		g2.drawString("Est tu pret a perdre : "+this.score.getScoreLife()+" ", 100, 665);
+		g2.drawString("Score: "+this.score.getScoreLife()+" ", 100, 665);
 		
+		
+	System.out.println("pac bloqué ? "+pac.getBlocked());
+	System.out.println("pac move :"+pac.getMove());	
+	System.out.println("pac nextMove :"+pac.getNextMove());
+	System.out.println("pacX "+pac.getElementX());
+	System.out.println("pacY"+pac.getElementY());
+	System.out.println("characterSpeed:" +pac.getCharacterSpeed());		
+		
+
+
+		//g2.drawString("Est tu pret a perdre", 100, 650);
+
 	}
 
 }

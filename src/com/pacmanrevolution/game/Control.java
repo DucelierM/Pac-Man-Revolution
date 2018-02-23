@@ -8,40 +8,31 @@ import com.pacmanrevolution.characters.PacMan;
 
 public class Control  implements KeyListener{
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		
-		// TODO Auto-generated method stub
-
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			Main.sc1.pac.setMove("RIGHT");
-
+	public void keyPressed(KeyEvent e){
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+			Main.sc1.pac.setNextMove("RIGHT");
 		}
 		
-		 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			 Main.sc1.pac.setMove("LEFT");
+		 if (e.getKeyCode() == KeyEvent.VK_LEFT){
+			 Main.sc1.pac.setNextMove("LEFT");
+		 }
+
+		 if (e.getKeyCode() == KeyEvent.VK_UP){
+			 Main.sc1.pac.setNextMove("UP");	
 		}
 
-		 if (e.getKeyCode() == KeyEvent.VK_UP) {		
-			 Main.sc1.pac.setMove("UP");
-		}
-
-		 if (e.getKeyCode() == KeyEvent.VK_DOWN) {		
-			 Main.sc1.pac.setMove("DOWN");
+		 if (e.getKeyCode() == KeyEvent.VK_DOWN){	
+			 Main.sc1.pac.setNextMove("DOWN");
 		}
 		
 	}
 
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	
+	public void keyReleased(KeyEvent e) {
 	}
 
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	
+	public void keyTyped(KeyEvent e) {
 	}
 
 
