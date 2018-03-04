@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+import com.pacmanrevolution.game.MapsGame;
 import com.pacmanrevolution.objets.Wall;
 
 
@@ -15,7 +16,7 @@ public class Pinky extends Ghost{
 		public Pinky( int elementX,int elementY) {
 
 			super(new ImageIcon("sprites/Pinky/Pinky0.png"),"sprites/Pinky/Pinky0.png",
-					elementX,elementY,35,35,0,25,"RIGHT","RIGHT","0",1,"Pinky0");
+					elementX,elementY,35,35,0,4,"RIGHT","RIGHT","0",1,"Pinky0");
 			
 			super.elementImg=elementIco.getImage();
 			
@@ -23,23 +24,19 @@ public class Pinky extends Ghost{
 
 		public Pinky() {
 			super(new ImageIcon("sprites/Pinky/Pinky0.png"),"sprites/Pinky/Pinky0.png",
-					50,50,35,35,0,25,"RIGHT","Right","0",1,"Pinky0");
+					50,50,35,35,0,4,"RIGHT","Right","0",1,"Pinky0");
 			
 			super.elementImg=elementIco.getImage();
 
 		}
 
 	
-	public void load(ArrayList<Wall> tabWall, PacMan pac) {
+	public void load(MapsGame mapsGame, PacMan pac) {
 		
 		int ratio = 100;
 		ratio= ratio / this.characterSpeed;
 		
-		System.out.println("ratio :" + ratio);
-		System.out.println("chronoSpeed:" +this.chronoSpeed);
-		System.out.println("characterSpeed:" +this.characterSpeed);
-
-		this.meetWall(tabWall);
+		this.meetWall(mapsGame);
 		this.moveCharacter();
 		this.controlPinky(pac);
 		
@@ -47,11 +44,11 @@ public class Pinky extends Ghost{
 		
 		if(this.chronoSpeed == ratio) {
 			
-			this.meetWall(tabWall);
+			this.meetWall(mapsGame);
 			this.moveCharacter();
 			this.controlPinky(pac);
 			
-			this.meetWall(tabWall);
+			this.meetWall(mapsGame);
 			this.moveCharacter();
 			this.controlPinky(pac);
 			

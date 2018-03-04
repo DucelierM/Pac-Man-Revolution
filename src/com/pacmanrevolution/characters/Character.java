@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 import com.pacmanrevolution.game.Element;
+import com.pacmanrevolution.game.MapsGame;
 import com.pacmanrevolution.objets.Item;
 import com.pacmanrevolution.objets.Wall;
 
@@ -12,7 +13,7 @@ public abstract class Character extends Element {
 	
 	
 	protected String move = "RIGHT";
-	protected String nextMove = "RIGHT";
+	protected String nextMove = "0";
 	protected String blocked = "0";
 	protected int characterSpeed = 1;
 	protected int chronoSpeed = 0;
@@ -70,9 +71,42 @@ public abstract class Character extends Element {
 		this.nextMove = nextMove;
 	}
 
-// detection des collisions entre un personnage et un mur 
+ 
+	
+	/*
+	 * public String meetWallPlus(){
+		
+	// on determine la position du character selon la matrice .
+		
+		int mapPositionX = this.getElementX()/35;
+		int mapPositionY = this.getElementY()/35;
+		
+	
+	
+	//cas ou le character se trouve pile dans la grille X et Y	
+		
+		if(this.elementX % 35 == 0 &&  this.elementY % 35 == 0) {
+			
+			 if(map.getComposition(mapPositionX,mapPositionY-1) >= 15) {
+				 return "blockRight";
+			 }
+		}
+		return blocked;
+		
+		
+	}
+	*/
+	
 
-	public void meetWall (ArrayList<Wall> tabWall){
+	
+
+				
+// detection des collisions entre un personnage et un mur 
+	
+	public String meetWall (MapsGame mapsGame){
+		
+		
+
 	
 	boolean blockLeft = false;
 	boolean blockRight = false;
@@ -82,19 +116,22 @@ public abstract class Character extends Element {
 	
 // collision gauche
 	
-	for(int i =0;i<tabWall.size();i++){
+	for(int i =0;i<mapsGame.getTabElements().size();i++){
 		
 	//contact du mur par la gauche
-		 if(this.elementX+this.elementLength == tabWall.get(i).getElementX()
+		 if(this.elementX+this.elementLength == mapsGame.getTabElements().get(i).getElementX()
 				 
 	//annule la collision si il est au dessus du mur 
-			&& this.getElementY()+this.getElementHeight() > tabWall.get(i).getElementY()	
+			&& this.getElementY()+this.getElementHeight() > mapsGame.getTabElements().get(i).getElementY()	
 			
 	//annule la collision si il est en dessous du mur 
-			&& this.getElementY() < tabWall.get(i).getElementY()+tabWall.get(i).getElementHeight()  
+			&& this.getElementY() < mapsGame.getTabElements().get(i).getElementY()+mapsGame.getTabElements().get(i).getElementHeight() 
+			
+	//on verifie si  l'element est un mur par son iDelement
+			&& mapsGame.getTabElements().get(i).getIdElement() == 15
 	
 	//contact à droite de l'ecran
-			|| this.elementX == 662){
+			|| this.elementX == 665){
 			 	blockLeft = true;
 			 	nbCollision++;
 			 	break;
@@ -103,18 +140,21 @@ public abstract class Character extends Element {
 	
 // collision haut
 	
-	for(int i =0;i<tabWall.size();i++){
+	for(int i =0;i<mapsGame.getTabElements().size();i++){
 		
 	//contact  du mur par le haut
-		if (this.elementY+this.elementHeight == tabWall.get(i).getElementY()
+		if (this.elementY+this.elementHeight == mapsGame.getTabElements().get(i).getElementY()
 	
 	//annule la collision si il est a gauche du mur
-			&& this.elementX + this.elementLength > tabWall.get(i).getElementX()
+			&& this.elementX + this.elementLength > mapsGame.getTabElements().get(i).getElementX()
 			
 	//annule la collision si il est a droite du mur
-			&& this.elementX < tabWall.get(i).getElementX() + tabWall.get(i).getElementLength()
+			&& this.elementX < mapsGame.getTabElements().get(i).getElementX() + mapsGame.getTabElements().get(i).getElementLength()
+			
+	//on verifie si  l'element est un mur par son iDelement
+			&& mapsGame.getTabElements().get(i).getIdElement() == 15
 	
-	//contac en bas de l'ecran
+	//contact en bas de l'ecran
 			|| this.elementY == 638){
 				blockUp = true;
 				nbCollision++;
@@ -124,16 +164,19 @@ public abstract class Character extends Element {
 	
 // collision droite
 		
-	for(int i =0;i<tabWall.size();i++){
+	for(int i =0;i<mapsGame.getTabElements().size();i++){
 		
 	//contact  du mur par la droite
-		if(this.getElementX() == tabWall.get(i).getElementX()+tabWall.get(i).getElementLength()	
+		if(this.getElementX() == mapsGame.getTabElements().get(i).getElementX()+mapsGame.getTabElements().get(i).getElementLength()	
 				
 	//annule la collision si il est au dessus du mur 
-			&& this.getElementY()+this.getElementLength() > tabWall.get(i).getElementY()
+			&& this.getElementY()+this.getElementLength() > mapsGame.getTabElements().get(i).getElementY()
 			
 	//annule la collision si il est en dessous du mur 		
-			&& this.getElementY() < tabWall.get(i).getElementY()+tabWall.get(i).getElementLength() 
+			&& this.getElementY() < mapsGame.getTabElements().get(i).getElementY()+mapsGame.getTabElements().get(i).getElementLength()
+			
+	//on verifie si  l'element est un mur par son iDelement
+			&& mapsGame.getTabElements().get(i).getIdElement() == 15
 			
 	//contact  à gauche de l'ecran	
 			|| this.elementX == 0){
@@ -145,16 +188,20 @@ public abstract class Character extends Element {
 	
 // collision bas
 	
-	for(int i =0;i<tabWall.size();i++) {
+	for(int i =0;i<mapsGame.getTabElements().size();i++) {
 		
 	//contact  du mur par le bas
-		if (this.getElementY() == tabWall.get(i).getElementY()+tabWall.get(i).getElementHeight()
+		if (this.getElementY() == mapsGame.getTabElements().get(i).getElementY()+mapsGame.getTabElements().get(i).getElementHeight()
 		
 	//annule la collision si il est a gauche du mur			
-			&& this.getElementX()+this.getElementLength() > tabWall.get(i).getElementX()	
+			&& this.getElementX()+this.getElementLength() > mapsGame.getTabElements().get(i).getElementX()	
 			
 	//annule la collision si il est a droite du mur		
-			&& this.getElementX() < tabWall.get(i).getElementX()+tabWall.get(i).getElementLength()
+			&& this.getElementX() < mapsGame.getTabElements().get(i).getElementX()+mapsGame.getTabElements().get(i).getElementLength()
+			
+	//on verifie si  l'element est un mur par son iDelement
+			&& mapsGame.getTabElements().get(i).getIdElement() == 15
+	
 	
 	//contact  en haut de l'ecran	
 			|| this.elementY == 0){	
@@ -169,51 +216,46 @@ public abstract class Character extends Element {
 	
 	
 	if(nbCollision == 1){
-		if (blockUp) {this.setBlocked("blockUp");}
-		else if (blockLeft) {this.setBlocked("blockLeft");}
-		else if (blockRight) {this.setBlocked("blockRight");}
-		else if (blockDown) {this.setBlocked("blockDown");} 
+		if (blockUp) {this.setBlocked("blockUp");			 return "blockUp";}
+		else if (blockLeft) {this.setBlocked("blockLeft");	 return "blockLeft";}
+		else if (blockRight) {this.setBlocked("blockRight"); return "blockRight";}
+		else if (blockDown) {this.setBlocked("blockDown");	 return "blockDown";} 
 	}
 	
 	else if(nbCollision == 2){
-		if (blockLeft && blockUp) {this.setBlocked("blockUpLeft");}
-		else if (blockLeft && blockDown) {this.setBlocked("blockDownLeft");}
-		else if (blockRight && blockDown) {this.setBlocked("blockDownRight");}
-		else if (blockRight && blockUp) {this.setBlocked("blockUpRight");}
-		else if (blockDown && blockUp) {this.setBlocked("blockUpDown");}
-		else if (blockLeft && blockRight) {this.setBlocked("blockLeftRight");}
+		if (blockLeft && blockUp) {this.setBlocked("blockUpLeft");            return "blockUpLeft";}
+		else if (blockLeft && blockDown) {this.setBlocked("blockDownLeft");   return "blockDownLeft";}
+		else if (blockRight && blockDown) {this.setBlocked("blockDownRight"); return "blockDownRight";}
+		else if (blockRight && blockUp) {this.setBlocked("blockUpRight");     return "blockUpRight";}
+		else if (blockDown && blockUp) {this.setBlocked("blockUpDown"); 	  return "blockUpDown";}
+		else if (blockLeft && blockRight) {this.setBlocked("blockLeftRight"); return "blockLeftRight";}
 	}
 	
 	else if(nbCollision == 3){
-		if (blockLeft && blockUp && blockDown ) {this.setBlocked("blockUpDownLeft");}
-		else if (blockLeft && blockDown && blockRight  ) {this.setBlocked("blockDownLeftRight");}
-		else if (blockRight && blockDown && blockUp ) {this.setBlocked("blockUpDownRight");}
-		else if (blockRight && blockUp && blockLeft ) {this.setBlocked("blockUpLeftRight");}
+		if (blockLeft && blockUp && blockDown ) {this.setBlocked("blockUpDownLeft");			 return "blockUpDownLeft";}
+		else if (blockLeft && blockDown && blockRight  ) {this.setBlocked("blockDownLeftRight"); return "blockDownLeftRight";}
+		else if (blockRight && blockDown && blockUp ) {this.setBlocked("blockUpDownRight"); 	 return "blockUpDownRight";}
+		else if (blockRight && blockUp && blockLeft ) {this.setBlocked("blockUpLeftRight"); 	 return "blockUpLeftRight";}
 	}
 
 	else if (nbCollision == 4 && blockRight && blockUp && blockLeft && blockDown){
-		this.setBlocked("totalBlock");
+		this.setBlocked("totalBlock") ; return "totalBlock";
 	}
 	
-	else{this.setBlocked("0");}
+	this.setBlocked("0");
+	return "0";
+
+	
 }
 
+	//predispose la prochaine direction du personnage saisi par le joueur (reserve à pac man)
 
-//predispose la prochaine direction du personnage saisi par le joueur
-
-	public int getCharacterSpeed() {
-	return characterSpeed;
-}
-
-
-	public void setCharacterSpeed(int characterSpeed) {
-	this.characterSpeed = characterSpeed;
-}
-
-
-	public void nextMoveCharacter() {
+	public String controlCharacter() {
 	if (this.nextMove=="RIGHT"
-			&& this.getBlocked() != "blockLeft"
+			
+			&&  this.getElementY() % 35 == 0
+			
+			&&  this.getBlocked() != "blockLeft"
 			&&  this.getBlocked() != "totalBlock"
 			
 			//3 collisions
@@ -225,10 +267,15 @@ public abstract class Character extends Element {
 			&&  this.getBlocked() != "blockUpLeft"
 			&&  this.getBlocked() != "blockDownLeft"
 			&&  this.getBlocked() != "blockLeftRight" 
-	) {this.move="RIGHT";}
+	) {this.move="RIGHT";
+		return "RIGHT"	;
+	}
 	
 	
 	if (this.nextMove=="LEFT"
+			
+			&&  this.getElementY() % 35 == 0
+			
 			&&  this.getBlocked() != "totalBlock"
 			
 			&&  this.getBlocked() != "blockUpDownRight"
@@ -239,11 +286,15 @@ public abstract class Character extends Element {
 			&&  this.getBlocked() != "blockDownRight"
 			&&  this.getBlocked() != "blockLeftRight"
 			&&  this.getBlocked() != "blockRight"
-	) {this.move="LEFT";}
+	) {this.move="LEFT";
+		return "LEFT"	;}
 	 
 	if (this.nextMove=="UP"
-			&& this.getBlocked() != "blockDown"
-			&&  this.getBlocked() != "totalBlock"
+			
+		&&  this.getElementX() % 35 == 0
+		
+		&& this.getBlocked() != "blockDown"
+		&&  this.getBlocked() != "totalBlock"
 		
 		&&  this.getBlocked() != "blockUpDownRight"
 		&&  this.getBlocked() != "blockUpDownLeft"
@@ -253,10 +304,15 @@ public abstract class Character extends Element {
 		&&  this.getBlocked() != "blockDownRight"
 		&&  this.getBlocked() != "blockUpDown" 
 			
-	) {this.move="UP";}
+	) {this.move="UP";
+		return "UP"	;
+	}
 	
 	
 	if (this.nextMove=="DOWN"
+		
+		&&  this.getElementX() % 35 == 0
+		
 		&&  this.getBlocked() != "totalBlock"
 			
 		&&  this.getBlocked() != "blockUpDownRight"
@@ -269,15 +325,14 @@ public abstract class Character extends Element {
 			
 		&& this.getBlocked() != "blockUp" 	
 			
-	) {this.move="DOWN";}
+	) {this.move="DOWN";
+		return "DOWN";
+	}
 	 
+	else {	return "OUPS !!!";}
 		
-		
- 
-}
-
-
-// applique le deplacement du personnage 
+}		
+// applique le deplacement du personnage si les conditions sont reunis 
 
 	public void moveCharacter() {
 	
@@ -320,7 +375,7 @@ public abstract class Character extends Element {
 			&&	this.blocked != "blockRight"
 			)
 		{	
-			this.elementX =this.elementX-1;		
+			this.elementX =this.elementX-1;	
 		}
 		
 	// deplacer en bas
@@ -360,39 +415,52 @@ public abstract class Character extends Element {
 	}
 
 
+	
+// contact avec les objets
 
-	public boolean proche(Item objet){   	
-		if((this.elementX > objet.getElementX() - 10 && this.elementX < objet.getElementX() + objet.getElementLength() + 10) 
-				|| (this.elementX + this.elementHeight > objet.getElementX() - 10 && this.elementX + this.elementHeight < objet.getElementX() + objet.getElementLength() + 10)){return true;}
+	public boolean proche(Element element){   	
+		if((this.elementX > element.getElementX() - 10 && this.elementX < element.getElementX() + element.getElementLength() + 10) 
+				|| (this.elementX + this.elementHeight > element.getElementX() - 10 && this.elementX + this.elementHeight < element.getElementX() + element.getElementLength() + 10)){return true;}
 		else{return false;}
 	}
+	
 
-	protected boolean contactAvant(Item objet){
+	protected boolean contactAvant(Element element){
 		if(this.move=="RIGHT" == true){
-			if(this.elementX + this.elementLength < objet.getElementX() || this.elementX + this.elementLength > objet.getElementX() + 5 
-					|| this.elementY + this.elementHeight <= objet.getElementY() || this.elementY >= objet.getElementY() + 
-					objet.getElementHeight()){return false;}
+			if(this.elementX + this.elementLength < element.getElementX() || this.elementX + this.elementLength > element.getElementX() + 5 
+					|| this.elementY + this.elementHeight <= element.getElementY() || this.elementY >= element.getElementY() + 
+					element.getElementHeight()){return false;}
 			else{return true;}
 		}else{return false;}
 	} 
 
-	protected boolean contactArriere(Item objet){		
-		if(this.elementX > objet.getElementX() + objet.getElementLength() || this.elementX + this.elementLength < objet.getElementX() 
-				+ objet.getElementLength() - 5 || this.getElementY() + this.elementHeight <= objet.getElementY() || 
-				this.elementY >= objet.getElementY() + objet.getElementHeight()){return false;}
+	protected boolean contactArriere(Element element){		
+		if(this.elementX > element.getElementX() + element.getElementLength() || this.elementX + this.elementLength < element.getElementX() 
+				+ element.getElementLength() - 5 || this.getElementY() + this.elementHeight <= element.getElementY() || 
+				this.elementY >= element.getElementY() + element.getElementHeight()){return false;}
 		else{return true;}
 }
 
-	protected boolean contactDessous(Item objet){	
-		if(this.elementX + this.elementLength < objet.getElementX() + 5 || this.elementX > objet.getElementX() + objet.getElementLength() - 5 || 
-			this.elementY + this.elementHeight < objet.getElementY() || this.elementY + this.elementHeight > objet.getElementY() + 5){return false;}
+	protected boolean contactDessous(Element element){	
+		if(this.elementX + this.elementLength < element.getElementX() + 5 || this.elementX > element.getElementX() + element.getElementLength() - 5 || 
+			this.elementY + this.elementHeight < element.getElementY() || this.elementY + this.elementHeight > element.getElementY() + 5){return false;}
 		else{return true;}		
 	}
 
-	protected boolean contactDessus(Item objet){
-		if(this.elementX + this.elementLength < objet.getElementX() + 5 || this.elementX > objet.getElementX() + objet.getElementLength() - 5 || 
-				this.elementY < objet.getElementY() + objet.getElementHeight() || this.elementY > objet.getElementY() + objet.getElementHeight() + 5){return false;}
+	protected boolean contactDessus(Element element){
+		if(this.elementX + this.elementLength < element.getElementX() + 5 || this.elementX > element.getElementX() + element.getElementLength() - 5 || 
+				this.elementY < element.getElementY() + element.getElementHeight() || this.elementY > element.getElementY() + element.getElementHeight() + 5){return false;}
 		else{return true;}
 	}
 	
+//getter et setters
+
+	public int getCharacterSpeed() {
+		return characterSpeed;
+	}
+
+	public void setCharacterSpeed(int characterSpeed) {
+		this.characterSpeed = characterSpeed;
+	}
+
 }

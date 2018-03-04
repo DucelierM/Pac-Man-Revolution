@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+import com.pacmanrevolution.game.MapsGame;
 import com.pacmanrevolution.objets.Wall;
 
 
@@ -14,8 +15,8 @@ public class Inky extends Ghost{
 	
 		public Inky( int elementX,int elementY) {
 
-			super(new ImageIcon("sprites/Blinky/Blinky0.png"),"sprites/Inky/Inky0.png",
-					elementX,elementY,35,35,0,25,"RIGHT","RIGHT","0",1,"Inky");
+			super(new ImageIcon("sprites/Inky/Inky0.png"),"sprites/Inky/Inky0.png",
+					elementX,elementY,35,35,0,3,"RIGHT","RIGHT","0",1,"Inky");
 			
 			super.elementImg=elementIco.getImage();
 			
@@ -23,23 +24,20 @@ public class Inky extends Ghost{
 
 		public Inky() {
 			super(new ImageIcon("sprites/Inky/Inky0.png"),"sprites/Inky/Inky0.png",
-					50,50,35,35,0,25,"RIGHT","Right","0",1,"Inky");
+					50,50,35,35,0,3,"RIGHT","Right","0",1,"Inky");
 			
 			super.elementImg=elementIco.getImage();
 
 		}
 
 	
-	public void load(ArrayList<Wall> tabWall, PacMan pac) {
+	public void load(MapsGame mapsGame ,PacMan pac) {
 		
 		int ratio = 100;
 		ratio= ratio / this.characterSpeed;
 		
-		System.out.println("ratio :" + ratio);
-		System.out.println("chronoSpeed:" +this.chronoSpeed);
-		System.out.println("characterSpeed:" +this.characterSpeed);
 
-		this.meetWall(tabWall);
+		this.meetWall(mapsGame);
 		this.moveCharacter();
 		this.controlInky(pac);
 		
@@ -47,11 +45,11 @@ public class Inky extends Ghost{
 		
 		if(this.chronoSpeed == ratio) {
 			
-			this.meetWall(tabWall);
+			this.meetWall(mapsGame);
 			this.moveCharacter();
 			this.controlInky(pac);
 			
-			this.meetWall(tabWall);
+			this.meetWall(mapsGame);
 			this.moveCharacter();
 			this.controlInky(pac);
 			

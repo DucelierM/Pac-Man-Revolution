@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+import com.pacmanrevolution.game.MapsGame;
 import com.pacmanrevolution.objets.Wall;
 
 
@@ -15,7 +16,7 @@ public class Blinky extends Ghost{
 		public Blinky( int elementX,int elementY) {
 
 			super(new ImageIcon("sprites/Blinky/Blinky0.png"),"sprites/Blinky/Blinky0.png",
-					elementX,elementY,35,35,0,25,"RIGHT","RIGHT","0",1,"Blinky");
+					elementX,elementY,35,35,0,2,"RIGHT","RIGHT","0",1,"Blinky");
 			
 			super.elementImg=elementIco.getImage();
 			
@@ -23,23 +24,20 @@ public class Blinky extends Ghost{
 
 		public Blinky() {
 			super(new ImageIcon("sprites/PacMan/PacMan0.png"),"sprites/PacMan/PacMan0.png",
-					50,50,35,35,0,25,"RIGHT","Right","0",1,"Blinky");
+					50,50,35,35,0,2,"RIGHT","Right","0",1,"Blinky");
 			
 			super.elementImg=elementIco.getImage();
 
 		}
 
 	
-	public void load(ArrayList<Wall> tabWall, PacMan pac) {
+	public void load(MapsGame mapsGame, PacMan pac) {
 		
 		int ratio = 100;
 		ratio= ratio / this.characterSpeed;
 		
-		System.out.println("ratio :" + ratio);
-		System.out.println("chronoSpeed:" +this.chronoSpeed);
-		System.out.println("characterSpeed:" +this.characterSpeed);
 
-		this.meetWall(tabWall);
+		this.meetWall(mapsGame);
 		this.moveCharacter();
 		this.controlBlinky(pac);
 		
@@ -47,11 +45,11 @@ public class Blinky extends Ghost{
 		
 		if(this.chronoSpeed == ratio) {
 			
-			this.meetWall(tabWall);
+			this.meetWall(mapsGame);
 			this.moveCharacter();
 			this.controlBlinky(pac);
 			
-			this.meetWall(tabWall);
+			this.meetWall(mapsGame);
 			this.moveCharacter();
 			this.controlBlinky(pac);
 			

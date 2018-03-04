@@ -5,7 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+import com.pacmanrevolution.audio.Audio;
+import com.pacmanrevolution.display.Score;
+import com.pacmanrevolution.game.Element;
 import com.pacmanrevolution.game.Main;
+import com.pacmanrevolution.game.MapsGame;
 import com.pacmanrevolution.objets.Item;
 import com.pacmanrevolution.objets.Wall;
 
@@ -18,48 +22,54 @@ public class PacMan extends Character{
 	public PacMan(int elementX,int elementY) {
 
 		super(new ImageIcon("sprites/PacMan/PacMan0.png"),"sprites/PacMan/PacMan0.png",
-				elementX,elementY,35,35,0,25,"RIGHT","RIGHT","0",1);
+				elementX,elementY,35,35,0,1,"RIGHT","0","0",40);
 		super.elementImg=elementIco.getImage();
-
+		
 		
 	}
 
 	public PacMan() {
 		super(new ImageIcon("sprites/PacMan/PacMan0.png"),"sprites/PacMan/PacMan0.png",
-				50,50,35,35,0,25,"RIGHT","RIGHT","0",1);
+				50,50,35,35,0,1,"RIGHT","0","0",40);
 		
 		super.elementImg=elementIco.getImage();
-		
-		
+			
 	}
 
 
-	public void load (ArrayList<Wall> tabWall) {
+	public void load (MapsGame mapsGame, Score score) {
 		
 		int ratio = 100;
 		ratio= ratio / this.characterSpeed;
 		
 			
-		this.nextMoveCharacter();
+		this.controlCharacter();
 		this.moveCharacter();
-		this.meetWall(tabWall);
+		this.meetWall(mapsGame);
+		
+	// objets mangeables 
+		
+		this.swallowItem(mapsGame, score);
 		
 		
-		this.animationPacMan();
 		
-		if(this.chronoSpeed == ratio) {
+		if(this.chronoSpeed >= ratio) {
 			
-			this.nextMoveCharacter();
-			this.moveCharacter();
-			this.meetWall(tabWall);	
-			
-			this.nextMoveCharacter();
-			this.moveCharacter();
-			this.meetWall(tabWall);	
-			
-			this.chronoSpeed = 0;
+			for(int i =0 ; i<4 ; i++) {
+				
+				this.controlCharacter();
+				this.moveCharacter();
+				this.meetWall(mapsGame);
+				
+			// objets mangeables 
+				
+				this.swallowItem(mapsGame, score);			
+			}		
+				this.chronoSpeed = 0;
 		}
 		
+		this.animationPacMan();
+		this.haveWon(mapsGame, score);
 		this.chronoSpeed++;
 	
 	}
@@ -77,13 +87,13 @@ public class PacMan extends Character{
 					if(idAnimationImgElement==0) {
 						elementRefImg = "sprites/PacMan/PacMan8.png";
 					}
-					else if (idAnimationImgElement==9) {
+					else if (idAnimationImgElement==5) {
 						elementRefImg = "sprites/PacMan/PacMan0.png";
 					}
-					else if (idAnimationImgElement==18) {
+					else if (idAnimationImgElement==10) {
 						elementRefImg = "sprites/PacMan/PacMan1.png";
 					}
-					else if (idAnimationImgElement==27) {
+					else if (idAnimationImgElement==15) {
 						elementRefImg = "sprites/PacMan/PacMan0.png";
 					}
 			}
@@ -95,13 +105,13 @@ public class PacMan extends Character{
 					if(super.idAnimationImgElement==0) {
 						super.elementRefImg = "sprites/PacMan/PacMan8.png";
 					}
-					else if (super.idAnimationImgElement==9) {
+					else if (super.idAnimationImgElement==5) {
 						super.elementRefImg = "sprites/PacMan/PacMan2.png";
 					}
-					else if (super.idAnimationImgElement==18) {
+					else if (super.idAnimationImgElement==10) {
 						super.elementRefImg = "sprites/PacMan/PacMan3.png";
 					}
-					else if (super.idAnimationImgElement==27) {
+					else if (super.idAnimationImgElement==15) {
 						super.elementRefImg = "sprites/PacMan/PacMan2.png";
 					}	
 				
@@ -113,13 +123,13 @@ public class PacMan extends Character{
 					if(super.idAnimationImgElement==0) {
 						super.elementRefImg = "sprites/PacMan/PacMan8.png";
 					}
-					else if (super.idAnimationImgElement==9) {
+					else if (super.idAnimationImgElement==5) {
 						super.elementRefImg = "sprites/PacMan/PacMan4.png";
 					}
-					else if (super.idAnimationImgElement==18) {
+					else if (super.idAnimationImgElement==10) {
 						super.elementRefImg = "sprites/PacMan/PacMan5.png";
 					}
-					else if (super.idAnimationImgElement==27) {
+					else if (super.idAnimationImgElement==15) {
 						super.elementRefImg = "sprites/PacMan/PacMan4.png";
 					}	
 				
@@ -129,13 +139,13 @@ public class PacMan extends Character{
 					if(super.idAnimationImgElement==0) {
 						super.elementRefImg = "sprites/PacMan/PacMan8.png";
 					}
-					else if (super.idAnimationImgElement==9) {
+					else if (super.idAnimationImgElement==5) {
 						super.elementRefImg = "sprites/PacMan/PacMan6.png";
 					}
-					else if (super.idAnimationImgElement==18) {
+					else if (super.idAnimationImgElement==10) {
 						super.elementRefImg = "sprites/PacMan/PacMan7.png";
 					}
-					else if (super.idAnimationImgElement==27) {
+					else if (super.idAnimationImgElement==15) {
 						super.elementRefImg = "sprites/PacMan/PacMan6.png";
 					}
 			}
@@ -145,7 +155,7 @@ public class PacMan extends Character{
 			super.elementIco = new ImageIcon(elementRefImg);
 			super.elementImg =elementIco.getImage();
 			
-			if(super.idAnimationImgElement==27) {
+			if(super.idAnimationImgElement==15) {
 				super.idAnimationImgElement=0;
 			}else {
 				
@@ -153,8 +163,8 @@ public class PacMan extends Character{
 			}
 		}
 		
-	
-		
+
+
 	
 //Methodes
 		
@@ -165,50 +175,121 @@ public class PacMan extends Character{
 
 		public void setPlayerLife(int playerLife) {
 			this.playerLife = playerLife;
-		}
-	
-		
+		}		
 
-		public boolean contactItem(Item piece){		
-			if(this.contactArriere(piece) == true || this.contactAvant(piece) == true || this.contactDessous(piece) == true || this.contactDessus(piece) == true){
+		public boolean contactItem(Element piece){		
+			if(this.contactArriere(piece) == true 
+					|| this.contactAvant(piece) == true 
+					|| this.contactDessous(piece) == true 
+					|| this.contactDessus(piece) == true){
 				return true;			
 			}else{return false;}
 		}
 		
-	/*
-	
-	public boolean haveWon () {
-		
-	}
 	
 	
-
-	public boolean swallowPacFreeze (PacMan.characterX , Pacman.caracterY , PacFreeze.quelquechose) {
 		
+	// pac man mange un item et applique l'effet en fonction de l'item avalée 
+	
+	
+	public void swallowItem (MapsGame mapsGame , Score score) {
+		for(int i =0;i<mapsGame.getTabElements().size();i++){
+			if(this.proche( mapsGame.getTabElements().get(i))){	
+				if(this.contactItem( mapsGame.getTabElements().get(i))){
+					
+					// determinatation de l'item avalée 
+					
+						if( mapsGame.getTabElements().get(i).getIdElement() >= 10 &&
+							mapsGame.getTabElements().get(i).getIdElement() <= 14){
+							
+						//fruits	
+								mapsGame.getTabElements().remove(i);
+								score.setScoreLife(score.getScoreLife() + 40);
+							//	Audio.playSound("/audio/pacmanSwallowFruit.wav");
+						}
+								
+						else if( mapsGame.getTabElements().get(i).getIdElement() == 6){
+									
+						//pac gum
+								mapsGame.getTabElements().remove(i);
+								score.setScoreLife(score.getScoreLife() + 10);
+							//	Audio.playSound("/audio/pacmanSwallowPacGum.wav");
+						}
+						
+						else if( mapsGame.getTabElements().get(i).getIdElement() == 9){
+							mapsGame.getTabElements().remove(i);
+							score.setScoreLife(score.getScoreLife() + 30);
+							//Audio.playSound("/audio/pacmanSwallowPacPrika.wav");
+							
+						//effect du pacPrika
+							this.characterSpeed = 100;				
+						}
+						
+						else if( mapsGame.getTabElements().get(i).getIdElement() == 7){
+							mapsGame.getTabElements().remove(i);
+							score.setScoreLife(score.getScoreLife() + 50);
+							//Audio.playSound("/audio/pacmanSwallowSuperPacGum.wav");
+							
+							//effet du superPacGum
+						}	
+						
+						
+						else if(this.contactItem( mapsGame.getTabElements().get(i))){
+							if( mapsGame.getTabElements().get(i).getIdElement() == 8){
+									mapsGame.getTabElements().remove(i);
+									score.setScoreLife(score.getScoreLife() + 20);
+							//		Audio.playSound("/audio/pacmanSwallowPacFreeze.wav");
+								//effet du pacFreeze
+					}
+				
+				}
+ 			}
+		}
 	}
-
-	public boolean swallowSuperPacGum () {
-		
-	}
-
-	public boolean swallowFruit () {
-		
-	}
-
-	public boolean swallowPacGum () {
-		
-	}
-
-	public boolean swallowPacPrika () {
-		
-	}
-
-	public boolean meetGhost () {
-		
-	}
-
-	public boolean loseLife () {
-		
-	}
-	*/
 }
+
+
+	
+	public void haveWon (MapsGame mapsGame , Score score) {
+		
+		int countPacGum = 0;
+		for(int i =0;i<mapsGame.getTabElements().size();i++){
+						if( mapsGame.getTabElements().get(i).getIdElement() == 6){
+						countPacGum++;
+						break;
+			}				
+ 		}
+		
+		if(countPacGum == 0) {System.out.println("TU AS GAGNE !!!!!");}
+		
+}
+
+	
+
+// pac man perd une vie lorqu'il touche un fantome si il n'a plus de vie , c'est game over !
+	
+	public void loseLife (MapsGame mapsGame , Score score) {
+		for(int i =0;i<mapsGame.getTabElements().size();i++){
+			if(this.proche( mapsGame.getTabElements().get(i))){	
+				if(this.contactItem( mapsGame.getTabElements().get(i))){
+						if( mapsGame.getTabElements().get(i).getIdElement() >= 2 &&
+							mapsGame.getTabElements().get(i).getIdElement() <= 5 ){
+							//Audio.playSound("audio/pacmanLoseLife.wav");
+							//perte d'une vie
+								
+								if(this.playerLife <= 0) {
+									
+									System.out.println("GAME OVER  !!!!!");
+								}
+								
+								this.playerLife--;				
+						}
+					}
+				}
+			}
+	}
+	
+}
+
+
+
