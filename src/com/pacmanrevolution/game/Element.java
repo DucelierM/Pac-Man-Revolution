@@ -27,15 +27,6 @@ public abstract class Element{
 	//identifiant  des elements de la scene
 	protected int idElement;
 
-
-	
-	/*public Element(int elementX , int elementY) {
-	
-		this.elementX = elementX;
-		this.elementY = elementY;
-	
-	}
-	*/
 	
 	public Element(ImageIcon elementIco,		 	
 					String elementRefImg,
@@ -53,9 +44,7 @@ public abstract class Element{
 		this.elementY = elementY;
 		this.elementHeight = elementHeight;
 		this.elementLength = elementLength;
-		this.idAnimationImgElement = idAnimationImgElement;
 		this.idElement = idElement;
-		
 		this.elementImg=elementIco.getImage();
 	}
 

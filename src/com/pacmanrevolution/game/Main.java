@@ -40,7 +40,7 @@ public class Main {
 		JFrame display = new JFrame("Pac Man Revolution");
 
 		display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		display.setSize(702, 700);
+		display.setSize(702, 720);
 		display.setLocationRelativeTo(null);
 		display.setResizable(false);	//interdit le redimensionement de la fenetre
 		display.setAlwaysOnTop(true); // permet de faire passer tous les autres images au dessus de Background
