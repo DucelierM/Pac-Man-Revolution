@@ -2,14 +2,15 @@ package com.pacmanrevolution.objets;
 
 import javax.swing.ImageIcon;
 
-class PacFreeze extends Item {
+public class PacFreeze extends Item {
 
-	public PacFreeze(ImageIcon elementIco, String elementRefImg, int elementX, int elementY, int elementHeight,
-			int elementLength, int idAnimationImgElement, int idElement) {
-		super(elementIco, elementRefImg, elementX, elementY, elementHeight, elementLength, idAnimationImgElement, idElement);
-		// TODO Auto-generated constructor stub
+	public PacFreeze(int elementX, int elementY) {
+		
+		super(new ImageIcon("sprites/PacItems/PacFreeze.png"),"sprites/PacItems/PacFreeze.png",
+				elementX,elementY,20,30,0,8);
+		
+		super.elementImg=elementIco.getImage();
+	    
 	}
-
-
 
 }
