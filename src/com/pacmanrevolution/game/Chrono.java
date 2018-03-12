@@ -18,7 +18,7 @@ public class Chrono implements Runnable{
 			
 			try {
 			
-				Thread.sleep(6);
+				Thread.sleep(7);
 			} catch (InterruptedException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();

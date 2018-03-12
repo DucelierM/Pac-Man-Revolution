@@ -10,19 +10,19 @@ public class Control  implements KeyListener{
 
 	public void keyPressed(KeyEvent e){
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D ){
-			Main.sc1.pac.setNextMove("RIGHT");
+			Main.sc1.pac.updateNextMoves("RIGHT");
 		}
 		
 		 if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_Q ){
-			 Main.sc1.pac.setNextMove("LEFT");
+			 Main.sc1.pac.updateNextMoves("LEFT");
 		 }
 
 		 if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_Z){
-			 Main.sc1.pac.setNextMove("UP");	
+			 Main.sc1.pac.updateNextMoves("UP");	
 		}
 
 		 if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){	
-			 Main.sc1.pac.setNextMove("DOWN");
+			 Main.sc1.pac.updateNextMoves("DOWN");
 		}
 	
 		
