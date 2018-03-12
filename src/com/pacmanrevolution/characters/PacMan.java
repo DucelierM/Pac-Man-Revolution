@@ -42,10 +42,10 @@ public class PacMan extends Character{
 		int ratio = 100;
 		ratio= ratio / this.characterSpeed;
 		
-			
+		this.meetWall(mapsGame);	
 		this.controlCharacter();
 		this.moveCharacter();
-		this.meetWall(mapsGame);
+		
 		
 	// objets mangeables 
 		
@@ -57,9 +57,10 @@ public class PacMan extends Character{
 			
 			for(int i =0 ; i<4 ; i++) {
 				
+				this.meetWall(mapsGame);
 				this.controlCharacter();
 				this.moveCharacter();
-				this.meetWall(mapsGame);
+				
 				
 			// objets mangeables 
 				
@@ -75,6 +76,72 @@ public class PacMan extends Character{
 	}
 	
 
+/*	
+	public void swallowItem(MapsGame mapsGame, Score score) {
+
+		int mapPositionX = 1;
+		int mapPositionY = 1;
+
+		// on determine la position du character selon la matrice .
+
+		if (this.getMove() == "RIGHT" || this.getMove() == "DOWN") {
+
+			mapPositionX = mapPositionX + this.getElementX() / 35;
+			mapPositionY = mapPositionY + this.getElementY() / 35;
+		}
+
+		else if (this.getMove() == "LEFT" || this.getMove() == "UP") {
+
+			mapPositionX = mapPositionX + (this.getElementX() + 34) / 35;
+			mapPositionY = mapPositionY + (this.getElementY() + 34) / 35;
+
+		}
+		
+		// traitement des collisions en fonction de la matrice
+		
+					if(mapsGame.getComposition(mapPositionX+1,mapPositionY) >=15 ) {	
+						blockLeft = true;
+					 
+					}
+
+				
+					if(mapsGame.getComposition(mapPositionX-1,mapPositionY) >=15) {	
+						blockRight = true;
+					
+					}
+				
+					
+					if(mapsGame.getComposition(mapPositionX,mapPositionY-1) >=15) {
+						
+						blockDown = true;
+							
+					}
+			
+
+					if(mapsGame.getComposition(mapPositionX,mapPositionY+1) >=15) {	
+						blockUp = true;
+								
+					}
+
+			// determinatation de l'item avalée
+
+			if (mapsGame.getComposition(mapPositionX+1,mapPositionY)  >= 10 &&
+					mapsGame.getComposition(mapPositionX+1,mapPositionY)  <= 14) {
+				// fruits
+				mapsGame.getTabElements().remove(i);
+				score.setScoreLife(score.getScoreLife() + 40);
+				// Audio.playSound("/audio/pacmanSwallowFruit.wav");
+			}
+
+			
+			if (mapsGame.getComposition(mapPositionX+1,mapPositionY) == 6) {
+				// fruits
+				mapsGame.getTabElements().remove(i);
+				score.setScoreLife(score.getScoreLife() + 40);
+				// Audio.playSound("/audio/pacmanSwallowFruit.wav");
+			}
+			
+*/
 		
 	// animation du personnage
 	
@@ -274,7 +341,7 @@ public class PacMan extends Character{
 				if(this.contactItem( mapsGame.getTabElements().get(i))){
 						if( mapsGame.getTabElements().get(i).getIdElement() >= 2 &&
 							mapsGame.getTabElements().get(i).getIdElement() <= 5 ){
-							//Audio.playSound("audio/pacmanLoseLife.wav");
+							//zzqqsqqqzzAudio.playSound("audio/pacmanLoseLife.wav");
 							//perte d'une vie
 								
 								if(this.playerLife <= 0) {

@@ -16,16 +16,16 @@ public class Clyde extends Ghost{
 	
 		public Clyde( int elementX,int elementY) {
 
-			super(new ImageIcon("sprites/Clyde/Clyde0.png"),"sprites/Clyde/Clyde0.png",
-					elementX,elementY,35,35,0,5,"RIGHT","0","0",100,"Clyde");
+			super(new ImageIcon("sprites/Clyde/clyde0.png"),"sprites/Clyde/clyde0.png",
+					elementX,elementY,35,35,0,5,"RIGHT","0","0",100,"clyde");
 			
 			super.elementImg=elementIco.getImage();
 			
 		}
 
 		public Clyde() {
-			super(new ImageIcon("sprites/PacMan/PacMan0.png"),"sprites/PacMan/PacMan0.png",
-					50,50,35,35,0,5,"RIGHT","0","0",100,"Clyde");
+			super(new ImageIcon("sprites/PacMan/clyde0.png"),"sprites/PacMan/clyde0.png",
+					50,50,35,35,0,5,"RIGHT","0","0",100,"clyde");
 			
 			super.elementImg=elementIco.getImage();
 
@@ -79,7 +79,7 @@ public class Clyde extends Ghost{
 				{this.setMove("UP");} 
 		
 			else if ( this.getElementX() > pac.getElementX())	//clyde se trouve a droite de pac man
-			{this.setMove("LEFT"); this.setNextMove("0");} 
+			{this.setMove("LEFT"); this.updateNextMoves("0");} 
 			
 			
 			// cas ou clyde rencontre un obstacle par le haut et pac man se trouve derriere l'obstacle 
@@ -87,11 +87,11 @@ public class Clyde extends Ghost{
 			 
 			else if (this.meetWall(mapsGame)=="blockDown" && this.getElementY() > pac.getElementY()
 					&& this.getElementX() > pac.getElementX() && this.getMove()!= "RIGHT") 
-			{this.setMove("LEFT"); this.setNextMove("UP");}
+			{this.setMove("LEFT"); this.updateNextMoves("UP");}
 			 
 			else if (this.meetWall(mapsGame)=="blockDown" && this.getElementY() > pac.getElementY() 
 					&& this.getElementX() <= pac.getElementX() && this.getMove()!= "LEFT") 
-			{this.setMove("RIGHT"); this.setNextMove("UP");}
+			{this.setMove("RIGHT"); this.updateNextMoves("UP");}
 			 
 			 
 			// cas ou clyde rencontre un obstacle par le bas et pac man se trouve derriere l'obstacle 
@@ -99,11 +99,11 @@ public class Clyde extends Ghost{
 			 
 			else if (this.meetWall(mapsGame)=="blockUp" && this.getElementY() < pac.getElementY()
 					&& this.getElementX() > pac.getElementX() && this.getMove()!= "RIGHT") 
-			{this.setMove("LEFT"); this.setNextMove("DOWN");}
+			{this.setMove("LEFT"); this.updateNextMoves("DOWN");}
 						 
 			else if (this.meetWall(mapsGame)=="blockUp" && this.getElementY() < pac.getElementY() 
 					&& this.getElementX() <= pac.getElementX() && this.getMove()!= "LEFT") 
-				{this.setMove("RIGHT"); this.setNextMove("DOWN");}
+				{this.setMove("RIGHT"); this.updateNextMoves("DOWN");}
 			 
 			 	 
 			// cas ou clyde rencontre un obstacle par la droite et pac man se trouve derriere l'obstacle 
@@ -111,11 +111,11 @@ public class Clyde extends Ghost{
 			 
 			else if (this.meetWall(mapsGame)=="blockRight" && this.getElementX() > pac.getElementX()
 					&& this.getElementY() < pac.getElementY() && this.getMove()!= "UP") 
-			{this.setMove("DOWN"); this.setNextMove("LEFT");}
+			{this.setMove("DOWN"); this.updateNextMoves("LEFT");}
 			 
 			else if (this.meetWall(mapsGame)=="blockRight" && this.getElementX() > pac.getElementX()
 					&& this.getElementY() >= pac.getElementY() && this.getMove()!= "DOWN") 
-			{this.setMove("UP"); this.setNextMove("LEFT");}
+			{this.setMove("UP"); this.updateNextMoves("LEFT");}
 			
 			
 			
@@ -124,11 +124,11 @@ public class Clyde extends Ghost{
 			 
 			else if (this.meetWall(mapsGame)=="blockLeft" && this.getElementX() < pac.getElementX()
 					&& this.getElementY() < pac.getElementY() && this.getMove()!= "UP") 
-			{this.setMove("DOWN"); this.setNextMove("RIGHT");}
+			{this.setMove("DOWN"); this.updateNextMoves("RIGHT");}
 						 
 			else if (this.meetWall(mapsGame)=="blockLeft" && this.getElementX() < pac.getElementX()
 					&& this.getElementY() >= pac.getElementY() && this.getMove()!= "DOWN") 
-			{this.setMove("UP"); this.setNextMove("RIGHT");}
+			{this.setMove("UP"); this.updateNextMoves("RIGHT");}
 								 
 			
 							
