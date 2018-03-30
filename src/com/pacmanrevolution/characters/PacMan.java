@@ -22,10 +22,8 @@ public class PacMan extends Character{
 	public PacMan(int elementX,int elementY) {
 
 		super(new ImageIcon("sprites/PacMan/PacMan0.png"),"sprites/PacMan/PacMan0.png",
-				elementX,elementY,35,35,0,1,"RIGHT","0","0",40);
-		super.elementImg=elementIco.getImage();
-		
-		
+				elementX,elementY,10,10,0,1,"RIGHT","0","0",40);
+		super.elementImg=elementIco.getImage();	
 	}
 
 	public PacMan() {
@@ -289,7 +287,7 @@ public class PacMan extends Character{
 							//Audio.playSound("/audio/pacmanSwallowPacPrika.wav");
 							
 						//effect du pacPrika
-							this.characterSpeed = 100;				
+							this.characterSpeed = 30;				
 						}
 						
 						else if( mapsGame.getTabElements().get(i).getIdElement() == 7){
