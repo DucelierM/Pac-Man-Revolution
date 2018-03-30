@@ -6,7 +6,7 @@ public class SuperPacGum extends Item {
 
 	public SuperPacGum(int elementX, int elementY) {
 		super(new ImageIcon("sprites/PacItems/SuperPacGum.png"),"sprites/PacItems/SuperPacGum.png",
-				elementX,elementY,30,30,0,7);
+				elementX,elementY,10,10,0,7);
 		
 		super.elementImg=elementIco.getImage();
 	}
