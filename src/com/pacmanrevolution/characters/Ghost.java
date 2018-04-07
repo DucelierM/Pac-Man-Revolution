@@ -13,9 +13,7 @@ public abstract class Ghost  extends Character  {
 	protected boolean isFrozen = false;
 	protected boolean isEaten = false;
 	protected String ghostName = "";
-	protected ArrayList<ArrayList<String>> tabPaths = new ArrayList<ArrayList<String>>();
-	
-	
+
 	
 	//protected Sound soundEffectGhost = null;
 
@@ -138,108 +136,203 @@ public abstract class Ghost  extends Character  {
 			
 		}
 		
-	
+
+		public void controlGhost(PacMan pac, MapsGame mapsGame) {
+
+			// on determine la position de clyde selon la matrice .
+
+			int mapPositionXClyde = 1;
+			int mapPositionYClyde = 1;
+
+			if (this.getMove() == "RIGHT" || this.getMove() == "DOWN") {
+
+				mapPositionXClyde = mapPositionXClyde + this.getElementX() / 35;
+				mapPositionYClyde = mapPositionYClyde + this.getElementY() / 35;
+			}
+
+			else if (this.getMove() == "LEFT" || this.getMove() == "UP") {
+
+				mapPositionXClyde = mapPositionXClyde + (this.getElementX() + 34) / 35;
+				mapPositionYClyde = mapPositionYClyde + (this.getElementY() + 34) / 35;
+			}
+
+			// on determine la position de pacman selon la matrice .
+
+			int mapPositionXPacMan = 1;
+			int mapPositionYPacMan = 1;
+
+			if (pac.getMove() == "RIGHT" || pac.getMove() == "DOWN") {
+
+				mapPositionXPacMan = mapPositionXPacMan + pac.getElementX() / 35;
+				mapPositionYPacMan = mapPositionYPacMan + pac.getElementY() / 35;
+			}
+
+			else if (pac.getMove() == "LEFT" || pac.getMove() == "UP") {
+
+				mapPositionXPacMan = mapPositionXPacMan + (pac.getElementX() + 34) / 35;
+				mapPositionYPacMan = mapPositionYPacMan + (pac.getElementY() + 34) / 35;
+			}
+			
 		
-		// construction du chemin le plus court pour aller vers pac man .
-		
-public String locate(PacMan pac ,MapsGame map){
-				
-			// on determine la position du character et de pacMan dans le tableau bidimentionnel .
-				
-				int posX = this.getElementX()/35;
-				int posY = this.getElementY()/35;
-				
-				int posPacX = pac.getElementX()/35;
-				int posPacY = pac.getElementX()/35;
-				
-				
-				boolean up = false;
-				boolean down = false;
-				boolean left = false;
-				boolean right = false;
-				int nbPossibilite = 0;
-				
-				
-				
-			// initialisation des chemins 
-				
+
+			// traitement des chemins possibles en fonction de la matrice
+
+			int map[][] = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+
+			};
+
+			int curseur = 2;
+
+			map[mapPositionYClyde][mapPositionXClyde] = 1;
 			
 			
-			//recherche du chemin pour trouver pac man
-				
-				if(this.elementX % 35 == 0 &&  this.elementY % 35 == 0) {
-					
-					while((map.getComposition(posX,posY)) != (map.getComposition(posPacX,posPacY))) {
-						
-					// on indentifie tous les elements adjacent a la position du fantome et on determine quel chemein prendre 
-						
-					
-						if(//element du haut   
-								map.getComposition(posX,posY+1) < 15){up = true; nbPossibilite++;
+/*-----------------------------------------------------------------------------------------------*/	
+
+			// tracage des chemins possibles
+
+			while (map[mapPositionYPacMan][mapPositionXPacMan] == 0) {
+
+				for (int ligne = 1; ligne < map.length - 1; ligne++) {
+					for (int colonne = 1; colonne < map[0].length - 1; colonne++) {
+
+						// bas
+						if (mapsGame.getComposition(ligne, colonne) < 15
+								&& mapsGame.getComposition(ligne, colonne) != 2
+								&& mapsGame.getComposition(ligne, colonne) != 3
+								&& mapsGame.getComposition(ligne, colonne) != 4
+								&& mapsGame.getComposition(ligne, colonne) != 5
+								
+								&& map[ligne][colonne - 1] == curseur - 1
+								&& map[ligne][colonne] == 0) {
+							map[ligne][colonne] = curseur;
 						}
-						
-						else if( //element du bas
-								map.getComposition(posX,posY-1) < 15){down = true; nbPossibilite++;
+
+						// haut
+						if (mapsGame.getComposition(ligne, colonne) < 15 
+								
+								&& mapsGame.getComposition(ligne, colonne) != 2
+								&& mapsGame.getComposition(ligne, colonne) != 3
+								&& mapsGame.getComposition(ligne, colonne) != 4
+								&& mapsGame.getComposition(ligne, colonne) != 5
+								
+								&& map[ligne][colonne + 1] == curseur - 1
+								&& map[ligne][colonne] == 0) {
+							map[ligne][colonne] = curseur;
 						}
-						
-						else if(//element de gauche
-							    map.getComposition(posX-1,posY) < 15){left = true; nbPossibilite++;
+
+						// droite
+						if (mapsGame.getComposition(ligne, colonne) < 15 
+								
+								&& mapsGame.getComposition(ligne, colonne) != 2
+								&& mapsGame.getComposition(ligne, colonne) != 3
+								&& mapsGame.getComposition(ligne, colonne) != 4
+								&& mapsGame.getComposition(ligne, colonne) != 5
+								
+								&& map[ligne + 1][colonne] == curseur - 1
+								&& map[ligne][colonne] == 0) {
+							map[ligne][colonne] = curseur;
 						}
-						
-						else if(
-							  //element du bas
-								map.getComposition(posX,posY-1) < 15){right = true; nbPossibilite++;	 
+
+						// gauche
+						if (mapsGame.getComposition(ligne, colonne) < 15 
+								
+								&& mapsGame.getComposition(ligne, colonne) != 2
+								&&  mapsGame.getComposition(ligne, colonne) != 3
+								&& mapsGame.getComposition(ligne, colonne) != 4
+								&& mapsGame.getComposition(ligne, colonne) != 5
+								
+								&& map[ligne - 1][colonne] == curseur - 1
+								&& map[ligne][colonne] == 0) {
+							map[ligne][colonne] = curseur;
 						}
-					
-						
-						// test du(des) prochain mouvement de clyde
-						
-						/*if(nbPossibilite==0) {
-							this.tabPaths.addAll("free");
-						}
-						
-						else if(nbPossibilite==1) {
-						
-							if(up){this.tabPaths.add("up");}
-							else if(down){this.tabPaths.add("down");}
-							else if(left){this.tabPaths.add("left");}
-							else if(right){this.tabPaths.add("right");}
-						
-						}
-						
-						else if(nbPossibilite==2) {
-							
-							if(up && down){this.tabPaths.add("upDown");}
-							else if(up && left){this.tabPaths.add("upLeft");}
-							else if(up && right){this.tabPaths.add("upRight");}
-							else if(down && left){this.tabPaths.add("downLeft");}
-							else if(down && right){this.tabPaths.add("downRight");}
-							else if(left && right){this.tabPaths.add("leftRight");}
-						
-						}
-						
-						else if(nbPossibilite==3) {
-							
-							if(up && down && left){this.tabPaths.add("upDownLeft");}
-							else if(up && down && right){this.tabPaths.add("upDownRight");}
-							else if(up && left && right){this.tabPaths.add("upLeftRight");}
-							else if(down && left && right){this.tabPaths.add("downLeftRight");}
-							
-						}
-						
-						else if(nbPossibilite==4) {
-							this.tabPaths.add("block");
-						}
-						*/
-						
-					  //creation d'un tableaux de chemins 
-						
-					  //determination du chemin a prendre et application 
+
+					}
+
+				}
+				curseur++;
+			}
+			
+			
+/*-----------------------------------------------------------------------------------------------*/			
+
+			// choix d'un chemin en fonction de pac man et affectation d'une direction
+			
+			if (this.getElementX() % 35 == 0 || this.getElementY() % 35 == 0) {	
+
+			for (int i = 0; i < map.length + map[0].length - 1; i++) {
+
+				// haut
+
+				if (map[mapPositionYPacMan][mapPositionXPacMan] == map[mapPositionYClyde][mapPositionXClyde]) {
+					this.setMove("0");
+					break;
+
+				}
+
+				else if (map[mapPositionYPacMan + 1][mapPositionXPacMan] == map[mapPositionYPacMan][mapPositionXPacMan] - 1) {
+					mapPositionYPacMan++;
+
+					// haut
+					if (map[mapPositionYPacMan][mapPositionXPacMan] == map[mapPositionYClyde][mapPositionXClyde]) {
+						this.setMove("UP");
+						break;
+					}
+
+				}
+
+				// bas
+				else if (map[mapPositionYPacMan - 1][mapPositionXPacMan] == map[mapPositionYPacMan][mapPositionXPacMan] - 1) {
+					mapPositionYPacMan--;
+					// bas
+					if (map[mapPositionYPacMan][mapPositionXPacMan] == map[mapPositionYClyde][mapPositionXClyde]) {
+						this.setMove("DOWN");
+						break;
 					}
 				}
-				return blocked;
-				
-				
+
+				// droite
+				else if (map[mapPositionYPacMan][mapPositionXPacMan + 1] == map[mapPositionYPacMan][mapPositionXPacMan] - 1) {
+					mapPositionXPacMan++;
+
+					// droite
+					if (map[mapPositionYPacMan][mapPositionXPacMan] == map[mapPositionYClyde][mapPositionXClyde]) {
+						this.setMove("LEFT");
+						break;
+					}
+				}
+
+				// gauche
+				else if (map[mapPositionYPacMan][mapPositionXPacMan - 1] == map[mapPositionYPacMan][mapPositionXPacMan] - 1) {
+					mapPositionXPacMan--;
+
+					// gauche
+					if (map[mapPositionYPacMan][mapPositionXPacMan] == map[mapPositionYClyde][mapPositionXClyde]) {
+						this.setMove("RIGHT");
+						break;
+					}
+					
+
+				}
+			  }
 			}
+		}
 
 }

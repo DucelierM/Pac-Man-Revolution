@@ -1,37 +1,39 @@
 package com.pacmanrevolution.audio;
 
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import java.applet.Applet;
+import java.applet.AudioClip;
 
 
 public class Audio {
 	
-	private Clip clip;
+	private AudioClip clip ;
 	
-	public Audio (String son) {
-		
+	public static final Audio audio1 = new Audio("/audio/pacmanSwallowPacFreeze.wav");
+	
+	public Audio(String filePath) {
 		try {
-			AudioInputStream audio = AudioSystem.getAudioInputStream(getClass().getResource(son));
+			clip = Applet.newAudioClip(Audio.class.getResource(filePath));
 			
-			clip = AudioSystem.getClip();
-			clip.open(audio);
-			clip.start();
-		}catch (Exception e) {}
-	}
-
-	public Clip getClip() {
-		return clip;
-	}
-	
-	public void play() {clip.start();}
-	public void stop() {clip.stop();}
-	
-	
-	public static void playSound(String son) {
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		Audio s = new Audio(son);
-		s.play();
+	}
+	
+	public void play() {
+		try {
+			new Thread() {
+				public void run() {
+					clip.play();
+				}
+			}.start();
+	
+		}
+			
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 }

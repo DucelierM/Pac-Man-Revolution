@@ -30,15 +30,16 @@ public class Scene extends JPanel {
 
 	private Score score;
 
-	protected PacMan pac = new PacMan(0, 0);
+	protected PacMan pac = new PacMan(0,0);
 
 	private Clyde cly = new Clyde(280, 280);
 
-	// private Inky ink = new Inky (315,280);
+	private Inky ink = new Inky (315,280);
 
-	// private Pinky pin = new Pinky(350,280);
+	private Pinky pin = new Pinky(350,280);
 
-	// private Blinky blk = new Blinky (385,280);
+	private Blinky blk = new Blinky (385,280);
+	
 
 	public Scene() {
 
@@ -84,43 +85,36 @@ public class Scene extends JPanel {
 
 		pac.load(mapsGame, score);
 		cly.load(mapsGame, pac);
-		// blk.load(mapsGame, pac);
-		// pin.load(mapsGame, pac);
-		// ink.load(mapsGame, pac);
+		blk.load(mapsGame, pac);
+		pin.load(mapsGame, pac);
+		ink.load(mapsGame, pac);
 
 		g2.drawImage(pac.getElementImg(), pac.getElementX(), pac.getElementY(), null); // dessine pacman
 		g2.drawImage(cly.getElementImg(), cly.getElementX(), cly.getElementY(), null); // dessine clyde
-		// g2.drawImage(blk.getElementImg(),blk.getElementX(),blk.getElementY(), null);
-		// // dessine blinky
-		// g2.drawImage(pin.getElementImg(),pin.getElementX(),pin.getElementY(), null);
-		// // dessine pinky
-		// g2.drawImage(ink.getElementImg(),ink.getElementX(),ink.getElementY(), null);
-		// // dessine inky
+		g2.drawImage(blk.getElementImg(),blk.getElementX(),blk.getElementY(), null);	// dessine blinky
+		g2.drawImage(pin.getElementImg(),pin.getElementX(),pin.getElementY(), null); // dessine pinky
+		g2.drawImage(ink.getElementImg(),ink.getElementX(),ink.getElementY(), null); // dessine inky
 
 		g2.setColor(Color.white);
 		g.setFont(new Font("arial", Font.BOLD, 15));
 		g2.drawString("Score: " + this.score.getScoreLife() + " ", 100, 665);
+		
 
-		System.out.println("pac bloqué ? " + pac.getBlocked());
-		System.out.println("pac move :" + pac.getMove());
-		System.out.println("pac nextMove :" + pac.getNextMoves(0));
-
+		//System.out.println("pac bloqué ? " + pac.getBlocked());		
+		//System.out.println("pac move :" + pac.getMove());
+		//System.out.println("pac nextMove :" + pac.getNextMoves(0));
 		System.out.println("pacX " + pac.getElementX());
 		System.out.println("pacY" + pac.getElementY());
 
-		/*
-		 * System.out.println("characterSpeed:" +pac.getCharacterSpeed());
-		 */
 
-		// System.out.println("cly bloqué ? "+cly.getBlocked());
-		// System.out.println("cly move :"+cly.getMove());
-		// System.out.println("cly nextMove :"+cly.getNextMove());
-		// System.out.println("clyX "+cly.getElementX());
-		// System.out.println("clyY"+cly.getElementY());
+		 System.out.println("characterSpeed:" +cly.getCharacterSpeed());
+		 
 
-		// System.out.println(mapsGame.getTabElements().get(26).getElementX());
-		// System.out.println(mapsGame.getTabElements().get(26).getElementY());
+		//System.out.println("cly bloqué ? "+cly.getBlocked());
+		 //System.out.println("cly move :"+cly.getMove());
+		 System.out.println("clyX "+cly.getElementX());
+		System.out.println("clyY"+cly.getElementY());
+
 
 	}
-
 }

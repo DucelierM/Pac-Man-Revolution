@@ -13,7 +13,7 @@ public abstract class Character extends Element {
 	
 	
 	protected String move = "RIGHT";
-	protected String nextMoves[] = {"0","0"};
+	protected String nextMoves[] = {"0"};
 	protected String blocked = "0";
 	protected int characterSpeed = 1;
 	protected int chronoSpeed = 0;
@@ -80,23 +80,7 @@ public abstract class Character extends Element {
 	public void updateNextMoves(String move) {
 		
 		int position = 0;
-		
-		// ajouts des predictions des coups
-		
-	//	if(this.move == "LEFT" && move == "RIGHT" && (this.nextMoves[position] == "UP" || this.nextMoves[position] == "DOWN")) {
-			
-	//		this.nextMoves[position+1] = move;
-			
-	//	}
-		
-		// application du dernier coup
-		
-	//	if(position >= 0 && position <= nextMoves.length) {
-			this.nextMoves[position] = move;
-			
-	//		this.nextMoves[position] = this.nextMoves[position+1];
-	//		this.nextMoves[position+1] = "0";
-	//	}
+		this.nextMoves[position] = move;
 	}
  
 // detection des collisions entre un personnage et un mur  (nouvelle version )
@@ -131,27 +115,27 @@ public String meetWall(MapsGame mapsGame){
 
 	// traitement des collisions en fonction de la matrice
 			
-			if(mapsGame.getComposition(mapPositionX+1,mapPositionY) >=15 ) {	
-				blockLeft = true;
+			if(mapsGame.getComposition(mapPositionY+1,mapPositionX) >=15 ) {	
+				blockUp = true;
 			 	nbCollision++;
 			}
 
 		
-			if(mapsGame.getComposition(mapPositionX-1,mapPositionY) >=15) {	
-				blockRight = true;
+			if(mapsGame.getComposition(mapPositionY-1,mapPositionX) >=15) {	
+				blockDown = true;
 			 	nbCollision++;
 			}
 		
 			
-			if(mapsGame.getComposition(mapPositionX,mapPositionY-1) >=15) {
+			if(mapsGame.getComposition(mapPositionY,mapPositionX-1) >=15) {
 				
-				blockDown = true;
+				blockRight = true;
 			 	nbCollision++;			
 			}
 	
 
-			if(mapsGame.getComposition(mapPositionX,mapPositionY+1) >=15) {	
-				blockUp = true;
+			if(mapsGame.getComposition(mapPositionY,mapPositionX+1) >=15) {	
+				blockLeft = true;
 				nbCollision++;			
 			}
 		
@@ -193,170 +177,12 @@ public String meetWall(MapsGame mapsGame){
 		
 
 				
-// detection des collisions entre un personnage et un mur  (version obsolete )
 
-/*
-	
-	public String meetWall (MapsGame mapsGame){
-		
-		
-
-	
-	boolean blockLeft = false;
-	boolean blockRight = false;
-	boolean blockUp = false;
-	boolean blockDown = false;
-	int nbCollision = 0;
-	
-// collision gauche
-	
-	for(int i =0;i<mapsGame.getTabElements().size();i++){
-		
-	//contact du mur par la gauche
-		 if(this.elementX+this.elementLength == mapsGame.getTabElements().get(i).getElementX()
-				 
-	//annule la collision si il est au dessus du mur 
-			&& this.getElementY()+this.getElementHeight() > mapsGame.getTabElements().get(i).getElementY()	
-			
-	//annule la collision si il est en dessous du mur 
-			&& this.getElementY() < mapsGame.getTabElements().get(i).getElementY()+mapsGame.getTabElements().get(i).getElementHeight() 
-			
-	//on verifie si  l'element est un mur par son iDelement
-			&& mapsGame.getTabElements().get(i).getIdElement() == 15
-	
-	//contact à droite de l'ecran
-			|| this.elementX == 665){
-			 	blockLeft = true;
-			 	nbCollision++;
-			 	break;
-		}
-	}	
-	
-// collision haut
-	
-	for(int i =0;i<mapsGame.getTabElements().size();i++){
-		
-	//contact  du mur par le haut
-		if (this.elementY+this.elementHeight == mapsGame.getTabElements().get(i).getElementY()
-	
-	//annule la collision si il est a gauche du mur
-			&& this.elementX + this.elementLength > mapsGame.getTabElements().get(i).getElementX()
-			
-	//annule la collision si il est a droite du mur
-			&& this.elementX < mapsGame.getTabElements().get(i).getElementX() + mapsGame.getTabElements().get(i).getElementLength()
-			
-	//on verifie si  l'element est un mur par son iDelement
-			&& mapsGame.getTabElements().get(i).getIdElement() == 15
-	
-	//contact en bas de l'ecran
-			|| this.elementY == 638){
-				blockUp = true;
-				nbCollision++;
-				break;
-			}
-		}
-	
-// collision droite
-		
-	for(int i =0;i<mapsGame.getTabElements().size();i++){
-		
-	//contact  du mur par la droite
-		if(this.getElementX() == mapsGame.getTabElements().get(i).getElementX()+mapsGame.getTabElements().get(i).getElementLength()	
-				
-	//annule la collision si il est au dessus du mur 
-			&& this.getElementY()+this.getElementLength() > mapsGame.getTabElements().get(i).getElementY()
-			
-	//annule la collision si il est en dessous du mur 		
-			&& this.getElementY() < mapsGame.getTabElements().get(i).getElementY()+mapsGame.getTabElements().get(i).getElementLength()
-			
-	//on verifie si  l'element est un mur par son iDelement
-			&& mapsGame.getTabElements().get(i).getIdElement() == 15
-			
-	//contact  à gauche de l'ecran	
-			|| this.elementX == 0){
-				blockRight = true;
-				nbCollision++;
-				break;
-		} 
-	}
-	
-// collision bas
-	
-	for(int i =0;i<mapsGame.getTabElements().size();i++) {
-		
-	//contact  du mur par le bas
-		if (this.getElementY() == mapsGame.getTabElements().get(i).getElementY()+mapsGame.getTabElements().get(i).getElementHeight()
-		
-	//annule la collision si il est a gauche du mur			
-			&& this.getElementX()+this.getElementLength() > mapsGame.getTabElements().get(i).getElementX()	
-			
-	//annule la collision si il est a droite du mur		
-			&& this.getElementX() < mapsGame.getTabElements().get(i).getElementX()+mapsGame.getTabElements().get(i).getElementLength()
-			
-	//on verifie si  l'element est un mur par son iDelement
-			&& mapsGame.getTabElements().get(i).getIdElement() == 15
-	
-	
-	//contact  en haut de l'ecran	
-			|| this.elementY == 0){	
-				blockDown = true;
-				nbCollision++;
-				break;
-		}
-	}
-	
-// traitement et affectation de la collision sur le personnage 
-// (le nommage se fait dans l'ordre suivant : Up -> Down -> Left -> Right)
-	
-	
-	if(nbCollision == 1){
-		if (blockUp) {this.setBlocked("blockUp");			 return "blockUp";}
-		else if (blockLeft) {this.setBlocked("blockLeft");	 return "blockLeft";}
-		else if (blockRight) {this.setBlocked("blockRight"); return "blockRight";}
-		else if (blockDown) {this.setBlocked("blockDown");	 return "blockDown";} 
-	}
-	
-	else if(nbCollision == 2){
-		if (blockLeft && blockUp) {this.setBlocked("blockUpLeft");            return "blockUpLeft";}
-		else if (blockLeft && blockDown) {this.setBlocked("blockDownLeft");   return "blockDownLeft";}
-		else if (blockRight && blockDown) {this.setBlocked("blockDownRight"); return "blockDownRight";}
-		else if (blockRight && blockUp) {this.setBlocked("blockUpRight");     return "blockUpRight";}
-		else if (blockDown && blockUp) {this.setBlocked("blockUpDown"); 	  return "blockUpDown";}
-		else if (blockLeft && blockRight) {this.setBlocked("blockLeftRight"); return "blockLeftRight";}
-	}
-	
-	else if(nbCollision == 3){
-		if (blockLeft && blockUp && blockDown ) {this.setBlocked("blockUpDownLeft");			 return "blockUpDownLeft";}
-		else if (blockLeft && blockDown && blockRight  ) {this.setBlocked("blockDownLeftRight"); return "blockDownLeftRight";}
-		else if (blockRight && blockDown && blockUp ) {this.setBlocked("blockUpDownRight"); 	 return "blockUpDownRight";}
-		else if (blockRight && blockUp && blockLeft ) {this.setBlocked("blockUpLeftRight"); 	 return "blockUpLeftRight";}
-	}
-
-	else if (nbCollision == 4 && blockRight && blockUp && blockLeft && blockDown){
-		this.setBlocked("totalBlock") ; return "totalBlock";
-	}
-	
-	this.setBlocked("0");
-	return "0";
-
-	
-}
-
-*/
-
-
-
-
-//predispose la prochaine direction du personnage saisi par le joueur (reserve à pac man)
-
-
+//predispose la prochaine direction du personnage saisi par le joueur
 
 
 	public String controlCharacter() {
-	if (this.nextMoves[0]=="RIGHT"
-			
-			//this.nextMove=="RIGHT"
-			
+	if ( (this.nextMoves[0]=="RIGHT"	
 			&&  this.getElementY() % 35 == 0
 			
 			&&  this.getBlocked() != "blockLeft"
@@ -370,19 +196,26 @@ public String meetWall(MapsGame mapsGame){
 			//2 collisions
 			&&  this.getBlocked() != "blockUpLeft"
 			&&  this.getBlocked() != "blockDownLeft"
-			&&  this.getBlocked() != "blockLeftRight" 
+			&&  this.getBlocked() != "blockLeftRight" )
+			
+		// auto guidage de pac man
+
+	//	||(this.move=="UP" &&  this.getBlocked() == "blockDownRight")
+	//	||(this.move=="DOWN" &&  this.getBlocked() == "blockUpRight")
 	) {this.move="RIGHT";
 		return "RIGHT"	;
 	}
 	
 	
-	if (this.nextMoves[0]=="LEFT"
+	else if (
 			
-		//	this.nextMove=="LEFT"
+			(this.nextMoves[0]=="LEFT"		
 			
 			&&  this.getElementY() % 35 == 0
 			
 			&&  this.getBlocked() != "totalBlock"
+			
+			&&  this.getBlocked() != "blockRight"
 			
 			&&  this.getBlocked() != "blockUpDownRight"
 			&&  this.getBlocked() != "blockDownLeftRight"
@@ -390,16 +223,23 @@ public String meetWall(MapsGame mapsGame){
 					
 			&&  this.getBlocked() != "blockUpRight"
 			&&  this.getBlocked() != "blockDownRight"
-			&&  this.getBlocked() != "blockLeftRight"
-			&&  this.getBlocked() != "blockRight"
-	) {this.move="LEFT";
-		return "LEFT"	;}
-	 
-	if (this.nextMoves[0]=="UP"
-				
-		//	this.nextMove=="UP"
+			&&  this.getBlocked() != "blockLeftRight")
 			
+			//||(this.move=="UP" &&  this.getBlocked() == "blockDownLeft")
+			//||(this.move=="DOWN" &&  this.getBlocked() == "blockUpLeft")
+			
+			
+	) {this.move="LEFT";
+		return "LEFT";
+		}
+	 
+	else if (
+			
+		(this.nextMoves[0]=="UP"
+							
 		&&  this.getElementX() % 35 == 0
+		
+		&&  this.getBlocked() != "blockUpDown"
 		
 		&& this.getBlocked() != "blockDown"
 		&&  this.getBlocked() != "totalBlock"
@@ -409,19 +249,23 @@ public String meetWall(MapsGame mapsGame){
 		&&  this.getBlocked() != "blockDownLeftRight"
 	
 		&&  this.getBlocked() != "blockDownLeft"
-		&&  this.getBlocked() != "blockDownRight"
-		&&  this.getBlocked() != "blockUpDown" 
+		&&  this.getBlocked() != "blockDownRight")
+		
+		//||(this.move=="RIGHT" &&  this.getBlocked() == "blockUpLeft")
+		//||(this.move=="LEFT" &&  this.getBlocked() == "blockUpRight")
 			
 	) {this.move="UP";
 		return "UP"	;
 	}
 	
 	
-	if (this.nextMoves[0]=="DOWN"
+	else if (
 			
-		//	this.nextMove=="DOWN"
+		(this.nextMoves[0]=="DOWN"
 		
 		&&  this.getElementX() % 35 == 0
+		
+		&& this.getBlocked() != "blockUp" 
 		
 		&&  this.getBlocked() != "totalBlock"
 			
@@ -432,8 +276,11 @@ public String meetWall(MapsGame mapsGame){
 		&&  this.getBlocked() != "blockUpRight"
 		&&  this.getBlocked() != "blockUpLeft"
 		&&  this.getBlocked() != "blockUpDown"
-			
-		&& this.getBlocked() != "blockUp" 	
+
+		)
+		
+		//||(this.move=="RIGHT" &&  this.getBlocked() == "blockDownLeft")
+		//||(this.move=="LEFT" &&  this.getBlocked() == "blocDownRight")
 			
 	) {this.move="DOWN";
 		return "DOWN";
@@ -450,6 +297,9 @@ public String meetWall(MapsGame mapsGame){
 	// deplacer à gauche
 	
 		if (this.move=="RIGHT"
+
+				
+			//&&  this.getElementY() % 35 == 0
 				
 				//4 collisions
 			&& this.blocked != "totalBlock"
@@ -476,6 +326,9 @@ public String meetWall(MapsGame mapsGame){
 		
 		else if (this.move=="LEFT"
 				
+			//&&  this.getElementY() % 35 == 0
+
+				
 			&&  this.blocked != "totalBlock"
 			&&  this.blocked != "blockUpDownRight"
 			&&  this.blocked != "blockDownLeftRight"
@@ -492,6 +345,8 @@ public String meetWall(MapsGame mapsGame){
 	// deplacer en bas
 		
 		else if(this.move=="UP"
+							
+			//&&  this.getElementX() % 35 == 0
 				
 			&&  this.blocked != "totalBlock"
 			&&  this.blocked != "blockUpDownRight"
@@ -510,6 +365,8 @@ public String meetWall(MapsGame mapsGame){
 	// deplacer en haut	
 		
 		else if(this.move=="DOWN"
+				
+			//&&  this.getElementX() % 35 == 0	
 				
 			&&  this.blocked != "totalBlock"
 			&&  this.blocked != "blockUpDownRight"
